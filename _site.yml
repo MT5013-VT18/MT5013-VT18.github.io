@@ -1,0 +1,9 @@
+name: "MT5013"
+output_dir: "."
+navbar:
+  title: "Statistisk databehandling (MT5013)"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Schedule"
+      href: about.html
