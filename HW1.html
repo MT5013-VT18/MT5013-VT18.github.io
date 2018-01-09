@@ -11,7 +11,7 @@
 
 
 
-<title>Welcome to MT5013</title>
+<title>HW1: GitHub test-run</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -202,21 +202,56 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Welcome to MT5013</h1>
+<h1 class="title toc-ignore">HW1: GitHub test-run</h1>
 
 </div>
 
 
-<p>This is the course web-site for Statistical Data Processing (<a href="https://sisu.it.su.se/search/archive_info/MT5013">MT5013</a>) at the <a href="http://www.math.su.se/">department of Mathematics</a>, <a href="http://www.su.se/">Stockholm University</a>. The course gives and introduction to obtaining, wrangling, exploring and visualising data using R. Main litterature will be <a href="http://r4ds.had.co.nz/index.html">R for Data Science</a> by Grolemund and Wickham complemented by courses from <a href="https://www.datacamp.com/home">DataCamp</a>.</p>
-<div id="examination" class="section level3">
-<h3>Examination</h3>
-<p>Examination constists of</p>
+<div id="assignment" class="section level2">
+<h2>Assignment</h2>
+<p>This homework follows up on the activities in the first class. For the assignment (which is essentially a test-run for upcoming assignments) you should follow steps 1-5 below. It is assumed that you are signed in to GitHub in a browser and have the Homework project active in RStudio. You will do all six homework assignments within the same R project/GitHub repository.</p>
+<ol style="list-style-type: decimal">
+<li>Create a subdirectory <code>HW1</code> in your <code>Homework</code> directory.</li>
+<li>Write an R Markdown document called <code>HW1.Rmd</code> in <code>HW1</code>, this should contain
 <ul>
-<li><p><a href="HW.html">Weekly individual homework assignments with sharp deadlines and peer review.</a></p></li>
-<li><p><a href="exam.html">An electronic exam (date to be announced).</a></p></li>
-<li><p><a href="project.html">An individual project.</a></p></li>
+<li>the document option <code>output: github_document</code> in the header,</li>
+<li>a brief description of your past experiences, if any, of using R, RStudio, R Markdown, Git, Github, ggplot2 and dplyr,</li>
+<li>a plot, using <code>ggplot</code>, of some aspect of a data-set. The data-set should be found on the web (i.e. not one that is preloaded in R or in some package) and you should document any steps taken in retrieving the data.</li>
+<li>End the document with a code chunk containing <code>sessionInfo()</code> (see end of this document), informing the reader what versions of R and packages you are using.</li>
+</ul></li>
+<li>Knit <code>HW1.Rmd</code> to create a file <code>HW1.md</code> that can be rendered by GitHub. <strong>Commit</strong> your work and <strong>Push</strong> to GitHub. Check using a web-browser that it is all there. Note that also the folder <code>HW1_files</code> needs to be committed, or the plots will not show on GitHub.</li>
+<li>Edit the <code>README.md</code> in your <code>Homework</code> directory to contain a link to <code>HW1.md</code> for easy access.</li>
+<li>When you are happy with the result, possibly after repeated uses of <strong>Commit</strong> and <strong>Push</strong>, open an issue in your Homework repository (see image below where to find issues) stating “HW1 ready for grading!”. <img src="Issue.png" /></li>
+</ol>
+</div>
+<div id="peer-review" class="section level2">
+<h2>Peer review</h2>
+<p>After deadline has passed, you will be given access to another students repository on GitHub. You should provide summary feedback by responding to the “HW1 ready for grading!” issue. In particular, you should check the following:</p>
+<ul>
+<li><p>Is there a working link from the main repository <code>README.md</code> to <code>HW1.md</code>?</p></li>
+<li><p>Do figures show up on <code>HW1.md</code> as expected?</p></li>
+<li><p>Was the latest version of R used?</p></li>
 </ul>
-<p>Note that DataCamp assignments are not part of the examination.</p>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.4.2 (2017-09-28)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 7 x64 (build 7601) Service Pack 1
+## 
+## Matrix products: default
+## 
+## locale:
+## [1] LC_COLLATE=Swedish_Sweden.1252  LC_CTYPE=Swedish_Sweden.1252   
+## [3] LC_MONETARY=Swedish_Sweden.1252 LC_NUMERIC=C                   
+## [5] LC_TIME=Swedish_Sweden.1252    
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## loaded via a namespace (and not attached):
+##  [1] compiler_3.4.2  backports_1.1.1 magrittr_1.5    rprojroot_1.2  
+##  [5] tools_3.4.2     htmltools_0.3.6 yaml_2.1.14     Rcpp_0.12.13   
+##  [9] stringi_1.1.5   rmarkdown_1.6   knitr_1.17      stringr_1.2.0  
+## [13] digest_0.6.12   evaluate_0.10.1</code></pre>
 </div>
 
 

@@ -1,0 +1,39 @@
+---
+title: "Schedule VT18"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo = FALSE, message=FALSE}
+library(jsonlite)
+library(tidyverse)
+library(knitr)
+
+# Byt https mot aktuellt schemalänk nedan
+TimeEdit_URL <- "https://se.timeedit.net/web/su/db1/stud1/ri157345X69Z06Q5Z86g2Ye0yZ076Y32Q0ngQY5Q5572l073oQb5ZWn54%C3%A4KW6c5unQWrl1boW3Z3qud3uuXahWd7blK6Qa765XW1pcBW8W54j6Lj4Wp8VW5W0586m53Xa%C3%A47V0nXao7YXY7w54WX58W568613XY56WW3133wcYIvw0W9Y5x4VorW94XxWW6o94a6oV8W1Wj2oYWV1Wo55WYV677W6Yo3V3X95V0.json"
+datum <- unique(fromJSON(TimeEdit_URL, flatten = TRUE)$reservations) %>% 
+    mutate(veckodag = weekdays(as.Date(startdate)), 
+           tid = paste(starttime, endtime, sep = "-")) %>% 
+    select(veckodag, startdate, tid) %>% 
+    distinct() # %>% apply(., 1, paste, collapse = ", ")
+topics <- c(
+    "[Introduction. Software, GitHub and Markdown.](day1.html)",
+    "[Tidyverse: Basic dplyr and ggplot2.](day2.html)",
+    "Tidyverse: group_by and summarise, more ggplot2.",
+    "Exploratory data analysis",
+    "Exploring high-dimensional data: Principal components and clustering",
+    "Cleaning data: Tidy data. Long to wide and back.",
+    "Relational data: Combining tables with dplyr joins.",
+    "Relational data: SQL basics. **Guest lecture: Sebastian Tengborg from [King](https://king.com/sv)**",
+    "Text data: Regular expressions.",
+    "Using APIs: httr, JSON and XML.",
+    "Web-scraping: Basic rvest.",
+    "R Programming: Programming with functions.",
+    "R Programming: Functional programming with purrr. **Guest lecture: Mehrdad Mamaghani from [Prime](https://primegroup.com/article/insight-mapping-usa-on-facebook-the-case-for-macro-targeting/)**",
+    "Presenting: Principles of visualisation.",
+    "Exam.",
+    "Project presentation.")
+kable(data.frame(Day = paste(datum$veckodag, datum$startdate, sep = ", "), Time = datum$tid, Topic = topics))
+```

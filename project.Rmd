@@ -1,0 +1,8 @@
+---
+title: "Project"
+output: html_document
+---
+
+The course will finish with an individual project in the form of a data-blog 
+post, making use of a number of tools taught in the course, and a short oral 
+presentation. The project (3 hp) is graded on a scale A-F.

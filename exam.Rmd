@@ -1,0 +1,7 @@
+---
+title: "Exam"
+output: html_document
+---
+
+An electronic exam involving live coding in an RStudio environment will test 
+skills in wrangling, tidying and visualisation of data. The exam (1.5 hp) is graded on a scale A-F.
