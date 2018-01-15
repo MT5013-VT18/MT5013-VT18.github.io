@@ -1,0 +1,45 @@
+---
+output: github_document
+---
+
+```{r, echo = FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(httr))
+suppressPackageStartupMessages(library(jsonlite))
+# Rapportår
+year <-  2017
+```
+
+
+```{r, echo = FALSE, warning= FALSE}
+#
+# Hämta KPI från SCB API
+#
+query <-
+"{
+    \"query\": [],
+    \"response\": {
+        \"format\": \"json\"
+    }
+}"
+KPI_url <- "http://api.scb.se/OV0104/v1/doris/sv/ssd/START/PR/PR0101/PR0101A/KPIFastM2"
+response <- POST(url = KPI_url, body = query)
+json <- content(response, "text")
+KPI_data <- fromJSON(json)$data %>% 
+    separate(key, into = c("Year", "Month"), sep = "M") %>% 
+    rename(KPI = values) %>% 
+    mutate(KPI = as.numeric(unlist(KPI)))
+```
+
+# Månatlig KPI `r year`
+
+```{r, echo = FALSE}
+#
+# Plotta KPI
+#
+filter(KPI_data, Year == year) %>% 
+    ggplot(aes(x = as.numeric(Month), y = KPI)) + 
+        geom_point() + geom_line() +
+        scale_x_continuous(name = "Månad", breaks = 1:12)
+```
+
