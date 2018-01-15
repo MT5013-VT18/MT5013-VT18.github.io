@@ -19,7 +19,7 @@ datum <- unique(fromJSON(TimeEdit_URL, flatten = TRUE)$reservations) %>%
     select(veckodag, startdate, tid) %>% 
     distinct() # %>% apply(., 1, paste, collapse = ", ")
 topics <- c(
-    "[Introduction. Software, GitHub and Markdown.](day1.html)",
+    "[Introduction. Software, GitHub and Markdown.](day1.html) [Slides](https://rawgit.com/MT5013-VT18/MT5013-VT18.github.io/master/slides/slide1.html#1)",
     "[Tidyverse: Basic dplyr and ggplot2.](day2.html)",
     "Tidyverse: group_by and summarise, more ggplot2.",
     "Exploratory data analysis",
