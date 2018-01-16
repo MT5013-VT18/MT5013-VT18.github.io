@@ -213,14 +213,16 @@ $(document).ready(function () {
 <div id="systembolagets-sortiment" class="section level1">
 <h1>Systembolagets sortiment</h1>
 <p>Systembolagets sortiment från 2018-01-12 sinns i filen <code>data/Products-2018-jan-12-081155.csv</code>. Den är hämtad från <a href="https://www.systembolaget.se/api/" class="uri">https://www.systembolaget.se/api/</a> och sparad som <code>.csv</code>-fil från Excel (ej helt reproducerbart!). Läs in och undersök innehållet med</p>
-<pre class="r"><code>Sortiment_hela &lt;-  read.csv2(&quot;data/Products-2018-jan-12-081155.csv&quot;, 
-                        dec =&quot;.&quot;, stringsAsFactors = FALSE)</code></pre>
+<pre class="r"><code>library(tidyverse)
+Sortiment_hela &lt;- read_delim(&quot;data/Products-2018-jan-12-081155.csv&quot;, 
+                 delim = &quot;;&quot;,
+                 locale = locale(encoding = &quot;latin1&quot;, decimal_mark = &quot;.&quot;))</code></pre>
 <div id="uppgifter-traning-av-arrange-filter-mutate" class="section level3">
 <h3>Uppgifter (träning av <code>arrange</code>, <code>filter</code>, <code>mutate</code>, <code>%&gt;%</code>)</h3>
 <ul>
 <li><p>Variabeln <code>Alkoholhalt</code> har blivit klassad som <code>character</code> av <code>read.csv2</code> eftersom dess värden innehåller ett procenttecken. Gör om den till numerisk genom att först ta bort procenttecknet (t.ex. med <code>gsub</code>) och sedan transformera med <code>as.numeric</code>.</p></li>
 <li><p>Ett fåtal produkter har fått varugrupp <code>Röda</code> respektive <code>Vita</code> istället för <code>Rött vin</code> respektive <code>Vitt vin</code>. Korrigera detta, t.ex. genom att använda <code>mutate</code> med ett <code>ifelse</code>-kommando.</p></li>
-<li><p>Vilken dryck har högst <code>PrisPerLiter</code>? Lägg in svaret (i form av R-kod) i den löpande texten i ditt <code>.Rmd</code>-dokument.</p></li>
+<li><p>Vilken dryck har högst <code>PrisPerLiter</code>? Lägg in svaret (d.v.s. dryckens <code>Namn</code> i form av R-kod) i den löpande texten i ditt <code>.Rmd</code>-dokument.</p></li>
 <li><p>Skapa ett nytt datamaterial <code>Sortiment_ord</code> med det ordinarie sortimentet (d.v.s. där variabeln <code>SortimentText</code> antar värdet <code>Ordinarie sortiment</code>). Gör sedan en tabell (t.ex. med <code>kable</code>) över de 10 dyraste (i <code>PrisPerLiter</code>) dryckerna ur detta sortiment. Använd <code>select</code> för att välja ut lämpliga variabler som skall ingå i tabellen.</p></li>
 <li><p>Om du inte redan gjort så, gör föregående uppgift i en sammanhängande sekvens pipes (<code>%&gt;%</code>).</p></li>
 </ul>
