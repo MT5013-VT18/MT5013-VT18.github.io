@@ -1,0 +1,65 @@
+---
+title: "Uppgifter lektion 1"
+author: "Martin Sköld"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Börja med att skapa ett R-projekt "Classroom" genom att klona `https://github.com/MT5013-VT18/Classroom`, detta kommer uppdateras under kursens gång. Därefter skapar du lämpligtvis ett R Mardown dokument `Class1.Rmd` som du arbetar i.
+
+
+
+# Systembolagets sortiment
+
+Systembolagets sortiment från 2018-01-12 sinns i filen `data/Products-2018-jan-12-081155.csv`. Den är hämtad från <https://www.systembolaget.se/api/> och sparad som `.csv`-fil från Excel (ej helt reproducerbart!). Läs in och undersök innehållet med
+```{r, eval = FALSE}
+Sortiment_hela <-  read.csv2("data/Products-2018-jan-12-081155.csv", 
+                        dec =".", stringsAsFactors = FALSE)
+```
+
+### Uppgifter (träning av `arrange`, `filter`, `mutate`, `%>%`)
+
+* Variabeln `Alkoholhalt` har blivit klassad som `character` av `read.csv2` eftersom dess värden innehåller ett procenttecken. Gör om den till numerisk genom att först ta bort procenttecknet (t.ex. med `gsub`) och sedan transformera med `as.numeric`.
+
+* Ett fåtal produkter har fått varugrupp `Röda` respektive `Vita` istället för `Rött vin` respektive `Vitt vin`. Korrigera detta, t.ex. genom att använda `mutate` med ett `ifelse`-kommando.
+
+* Vilken dryck har högst `PrisPerLiter`? Lägg in svaret (i form av R-kod) i den löpande texten i ditt `.Rmd`-dokument.
+
+* Skapa ett nytt datamaterial `Sortiment_ord` med det ordinarie sortimentet (d.v.s. där variabeln `SortimentText` antar värdet `Ordinarie sortiment`). Gör sedan en tabell (t.ex. med `kable`) över de 10 dyraste (i `PrisPerLiter`) dryckerna ur detta sortiment. Använd `select` för att välja ut lämpliga variabler som skall ingå i tabellen.
+
+* Om du inte redan gjort så, gör föregående uppgift i en sammanhängande sekvens pipes (`%>%`).
+
+### Uppgifter (träning av `ggplot`, `geom_point`, `geom_line`, `facet_wrap`)
+
+För ordinarie sortiment:
+
+* Plotta `PrisPerLiter` mot `Alkoholhalt` för ordinarie sortimentet, färglägg punkterna efter varugrupp och överväg log-skala för `PrisPerLiter`.
+* Plotta `PrisPerLiter` (eventuellt på log-skala) mot `Varugrupp`. Överväg `coord_flip` för läsbarhet.
+* För varugrupperna i `c("Vitt vin", "Rött vin", "Rosévin", "Mousserande vin")` med årgångar 2010-2017, plotta `PrisPerLiter` mot `Argang`. Prova med en  `facet` för varje varugrupp och med färg efter varugrupp i samma `facet`.
+
+### Fler uppgifter
+
+* Använd din fantasi.
+
+# Olympiska vintermedaljer 
+
+Filen `data/Winter_medals2018-01-16.csv` innehåller antalet medaljer per land vid vinter OS sedan 1980, samt landets population. Datamaterialet är skapad av [`R/Winter_medals.R`](https://github.com/MT5013-VT18/Classroom/R/Winter_medals.R) som innehåller mer information, speciellt om hanteringen av länder som delats eller slagits ihop under perioden.
+
+### Uppgifter (träning av `arrange`, `filter`, `mutate`, `%>%`)
+
+* Skapa en variabel `medals_per_mill`, antal medaljer per miljoner invånare.
+* Skapa en tabell med de 10 främsta länderna rankat efter `medals_per_mill` under vinter OS 2014.
+
+### Uppgifter (träning av `ggplot`, `geom_point`, `geom_line`, `facet_frap`)
+
+* Plotta det totala antalet medaljer som funktion av år för Sverige, Norge och Finland i samma figur (använd t.ex. `%in%` för att filtrera) och skilj på länderna med lämplig "aesthetic" (se `?geom_point` för en lista på vilka `gaom_point` förstår).
+* Plotta antalet svenska guld, silver och brons (bonus: färglägg punkterna i guld/silver/brons-färg)  som funktion av år i samma figur.
+* Som föregående, fast med en "`facet`" för var och en av Sverige, Norge och Finland.
+
+### Fler uppgifter
+
+* Använd din fantasi.
+

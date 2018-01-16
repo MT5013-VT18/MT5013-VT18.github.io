@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Martin Sköld" />
+
+
+<title>Uppgifter lektion 1</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statical Data Processing (MT5013)</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="schedule.html">Schedule</a>
+</li>
+<li>
+  <a href="HW.html">Homework</a>
+</li>
+<li>
+  <a href="exam.html">Exam</a>
+</li>
+<li>
+  <a href="project.html">Project</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Uppgifter lektion 1</h1>
+<h4 class="author"><em>Martin Sköld</em></h4>
+
+</div>
+
+
+<p>Börja med att skapa ett R-projekt “Classroom” genom att klona <code>https://github.com/MT5013-VT18/Classroom</code>, detta kommer uppdateras under kursens gång. Därefter skapar du lämpligtvis ett R Mardown dokument <code>Class1.Rmd</code> som du arbetar i.</p>
+<div id="systembolagets-sortiment" class="section level1">
+<h1>Systembolagets sortiment</h1>
+<p>Systembolagets sortiment från 2018-01-12 sinns i filen <code>data/Products-2018-jan-12-081155.csv</code>. Den är hämtad från <a href="https://www.systembolaget.se/api/" class="uri">https://www.systembolaget.se/api/</a> och sparad som <code>.csv</code>-fil från Excel (ej helt reproducerbart!). Läs in och undersök innehållet med</p>
+<pre class="r"><code>Sortiment_hela &lt;-  read.csv2(&quot;data/Products-2018-jan-12-081155.csv&quot;, 
+                        dec =&quot;.&quot;, stringsAsFactors = FALSE)</code></pre>
+<div id="uppgifter-traning-av-arrange-filter-mutate" class="section level3">
+<h3>Uppgifter (träning av <code>arrange</code>, <code>filter</code>, <code>mutate</code>, <code>%&gt;%</code>)</h3>
+<ul>
+<li><p>Variabeln <code>Alkoholhalt</code> har blivit klassad som <code>character</code> av <code>read.csv2</code> eftersom dess värden innehåller ett procenttecken. Gör om den till numerisk genom att först ta bort procenttecknet (t.ex. med <code>gsub</code>) och sedan transformera med <code>as.numeric</code>.</p></li>
+<li><p>Ett fåtal produkter har fått varugrupp <code>Röda</code> respektive <code>Vita</code> istället för <code>Rött vin</code> respektive <code>Vitt vin</code>. Korrigera detta, t.ex. genom att använda <code>mutate</code> med ett <code>ifelse</code>-kommando.</p></li>
+<li><p>Vilken dryck har högst <code>PrisPerLiter</code>? Lägg in svaret (i form av R-kod) i den löpande texten i ditt <code>.Rmd</code>-dokument.</p></li>
+<li><p>Skapa ett nytt datamaterial <code>Sortiment_ord</code> med det ordinarie sortimentet (d.v.s. där variabeln <code>SortimentText</code> antar värdet <code>Ordinarie sortiment</code>). Gör sedan en tabell (t.ex. med <code>kable</code>) över de 10 dyraste (i <code>PrisPerLiter</code>) dryckerna ur detta sortiment. Använd <code>select</code> för att välja ut lämpliga variabler som skall ingå i tabellen.</p></li>
+<li><p>Om du inte redan gjort så, gör föregående uppgift i en sammanhängande sekvens pipes (<code>%&gt;%</code>).</p></li>
+</ul>
+</div>
+<div id="uppgifter-traning-av-ggplot-geom_point-geom_line-facet_wrap" class="section level3">
+<h3>Uppgifter (träning av <code>ggplot</code>, <code>geom_point</code>, <code>geom_line</code>, <code>facet_wrap</code>)</h3>
+<p>För ordinarie sortiment:</p>
+<ul>
+<li>Plotta <code>PrisPerLiter</code> mot <code>Alkoholhalt</code> för ordinarie sortimentet, färglägg punkterna efter varugrupp och överväg log-skala för <code>PrisPerLiter</code>.</li>
+<li>Plotta <code>PrisPerLiter</code> (eventuellt på log-skala) mot <code>Varugrupp</code>. Överväg <code>coord_flip</code> för läsbarhet.</li>
+<li>För varugrupperna i <code>c(&quot;Vitt vin&quot;, &quot;Rött vin&quot;, &quot;Rosévin&quot;, &quot;Mousserande vin&quot;)</code> med årgångar 2010-2017, plotta <code>PrisPerLiter</code> mot <code>Argang</code>. Prova med en <code>facet</code> för varje varugrupp och med färg efter varugrupp i samma <code>facet</code>.</li>
+</ul>
+</div>
+<div id="fler-uppgifter" class="section level3">
+<h3>Fler uppgifter</h3>
+<ul>
+<li>Använd din fantasi.</li>
+</ul>
+</div>
+</div>
+<div id="olympiska-vintermedaljer" class="section level1">
+<h1>Olympiska vintermedaljer</h1>
+<p>Filen <code>data/Winter_medals2018-01-16.csv</code> innehåller antalet medaljer per land vid vinter OS sedan 1980, samt landets population. Datamaterialet är skapad av <a href="https://github.com/MT5013-VT18/Classroom/R/Winter_medals.R"><code>R/Winter_medals.R</code></a> som innehåller mer information, speciellt om hanteringen av länder som delats eller slagits ihop under perioden.</p>
+<div id="uppgifter-traning-av-arrange-filter-mutate-1" class="section level3">
+<h3>Uppgifter (träning av <code>arrange</code>, <code>filter</code>, <code>mutate</code>, <code>%&gt;%</code>)</h3>
+<ul>
+<li>Skapa en variabel <code>medals_per_mill</code>, antal medaljer per miljoner invånare.</li>
+<li>Skapa en tabell med de 10 främsta länderna rankat efter <code>medals_per_mill</code> under vinter OS 2014.</li>
+</ul>
+</div>
+<div id="uppgifter-traning-av-ggplot-geom_point-geom_line-facet_frap" class="section level3">
+<h3>Uppgifter (träning av <code>ggplot</code>, <code>geom_point</code>, <code>geom_line</code>, <code>facet_frap</code>)</h3>
+<ul>
+<li>Plotta det totala antalet medaljer som funktion av år för Sverige, Norge och Finland i samma figur (använd t.ex. <code>%in%</code> för att filtrera) och skilj på länderna med lämplig “aesthetic” (se <code>?geom_point</code> för en lista på vilka <code>gaom_point</code> förstår).</li>
+<li>Plotta antalet svenska guld, silver och brons (bonus: färglägg punkterna i guld/silver/brons-färg) som funktion av år i samma figur.</li>
+<li>Som föregående, fast med en “<code>facet</code>” för var och en av Sverige, Norge och Finland.</li>
+</ul>
+</div>
+<div id="fler-uppgifter-1" class="section level3">
+<h3>Fler uppgifter</h3>
+<ul>
+<li>Använd din fantasi.</li>
+</ul>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
