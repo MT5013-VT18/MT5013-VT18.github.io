@@ -35,7 +35,7 @@ Sortiment_hela <-  read.csv2("data/Products-2018-jan-12-081155.csv",
 ### Uppgifter (träning av `ggplot`, `geom_point`, `geom_line`, `facet_wrap`)
 
 För ordinarie sortiment:
-
+ 
 * Plotta `PrisPerLiter` mot `Alkoholhalt` för ordinarie sortimentet, färglägg punkterna efter varugrupp och överväg log-skala för `PrisPerLiter`.
 * Plotta `PrisPerLiter` (eventuellt på log-skala) mot `Varugrupp`. Överväg `coord_flip` för läsbarhet.
 * För varugrupperna i `c("Vitt vin", "Rött vin", "Rosévin", "Mousserande vin")` med årgångar 2010-2017, plotta `PrisPerLiter` mot `Argang`. Prova med en  `facet` för varje varugrupp och med färg efter varugrupp i samma `facet`.
