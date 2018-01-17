@@ -83,8 +83,8 @@ h(f(g(a)))
 
 ```
 a %>%  
-    g %>%
-    f %>% 
+    f %>%
+    g %>% 
     h
 ```
 
@@ -157,7 +157,6 @@ ggplot(mtcars,
     geom_point()
 ```
 
-## `ggplot2` lager
 
 
 
