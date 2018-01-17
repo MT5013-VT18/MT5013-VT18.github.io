@@ -11,3 +11,69 @@ output:
 Read [R4DS](http://r4ds.had.co.nz/) chapters 3.1-3.6, 5.1-5.3
 
 Complete assignments *Data wrangling* and *Data visualization* (first two chapters of Introduction to the Tidyverse) at [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18/details).
+
+## Att göra under lektionen
+
+Börja med att skapa ett R-projekt "Classroom" genom att klona repot `https://github.com/MT5013-VT18/Classroom`. Därefter skapar du lämpligtvis ett R Mardown dokument `Class1.Rmd` som du arbetar i. Vi kommer uppdatera repot under kursens gång, för att föra över uppdateringarna till ditt lokala bibliotek gör du en "pull" (Tools > Version control > Pull branches).
+
+
+# Systembolagets sortiment
+
+Systembolagets sortiment från 2018-01-12 finns i filen `data/Products-2018-jan-12-081155.csv`. Den är hämtad från <https://www.systembolaget.se/api/> och sparad som `.csv`-fil från Excel (ej helt reproducerbart!). Läs in och undersök innehållet med
+```{r, eval = FALSE}
+library(tidyverse)
+Sortiment_hela <- read_delim("data/Products-2018-jan-12-081155.csv", 
+                 delim = ";",
+                 locale = locale(encoding = "latin1", decimal_mark = "."))
+```
+
+### Uppgifter (träning av `arrange`, `filter`, `mutate`, `select`, `%>%`)
+
+* Variabeln `Alkoholhalt` har blivit klassad som `character` av `read_delim`, eftersom dess värden innehåller ett procenttecken. Gör om den till numerisk med `mutate` genom att först ta bort procenttecknet (t.ex. med `gsub`) och sedan transformera med `as.numeric`.
+
+* Ett fåtal produkter har fått varugrupp `Röda` respektive `Vita` istället för `Rött vin` respektive `Vitt vin`. Korrigera detta, t.ex. genom att använda `mutate` med ett `ifelse`-kommando.
+
+* Vilken dryck har högst `PrisPerLiter`? Lägg in svaret (d.v.s. dryckens `Namn` i form av R-kod) i den löpande texten i ditt `.Rmd`-dokument.
+
+* Skapa ett nytt datamaterial `Sortiment_ord` med det ordinarie sortimentet (d.v.s. där variabeln `SortimentText` antar värdet `Ordinarie sortiment`). Gör sedan en tabell (t.ex. med `kable`) över de 10 dyraste (i `PrisPerLiter`) dryckerna ur detta sortiment. Använd `select` för att välja ut lämpliga variabler som skall ingå i tabellen.
+
+* Om du inte redan gjort så, gör föregående uppgift i en sammanhängande sekvens pipes (`%>%`).
+
+### Uppgifter (träning av `ggplot`, `geom_point`, `geom_line`, `facet_wrap`)
+
+För ordinarie sortiment:
+ 
+* Plotta `PrisPerLiter` mot `Alkoholhalt` för ordinarie sortimentet, färglägg punkterna efter varugrupp och överväg log-skala för `PrisPerLiter`.
+* Plotta `PrisPerLiter` (eventuellt på log-skala) mot `Varugrupp`. Överväg `coord_flip` för läsbarhet.
+* För varugrupperna i `c("Vitt vin", "Rött vin", "Rosévin", "Mousserande vin")` med årgångar 2010-2017, plotta `PrisPerLiter` mot `Argang`. Prova med en  `facet` för varje varugrupp och med färg efter varugrupp i samma `facet`.
+
+### Fler uppgifter
+
+* Använd din fantasi.
+
+# Olympiska vintermedaljer 
+
+Filen `data/Winter_medals2018-01-16.csv` innehåller antalet medaljer per land och OS-år vid vinter OS sedan 1980 samt landets dåvarande population. Datamaterialet är skapad av [`R/Winter_medals.R`](https://github.com/MT5013-VT18/Classroom/blob/master/R/Winter_medals.R) som innehåller mer information, speciellt om hanteringen av länder som delats eller slagits ihop under perioden. Du läser in med
+```{r, eval = FALSE}
+winter_medals <- read_csv("data/Winter_medals2018-01-16.csv")
+```
+
+
+### Uppgifter (träning av `arrange`, `filter`, `mutate`, `select`, `%>%`)
+
+* Skapa en variabel `medals_per_mill`, antal medaljer per miljoner invånare.
+* Skapa en tabell med de 10 främsta länderna rankat efter `medals_per_mill` under vinter OS 2014.
+
+### Uppgifter (träning av `ggplot`, `geom_point`, `geom_line`, `facet_wrap`)
+
+* Plotta det totala antalet medaljer som funktion av år för Sverige, Norge och Finland i samma figur (använd t.ex. `%in%` för att filtrera) och skilj på länderna med lämplig "aesthetic" (se `?geom_point` för en lista på vilka `geom_point` förstår).
+* Plotta antalet svenska guld, silver och brons (bonus: färglägg punkterna i guld/silver/brons-färg)  som funktion av år i samma figur.
+* Som föregående, fast med en "`facet`" för var och en av Sverige, Norge och Finland.
+
+### Fler uppgifter
+
+* Använd din fantasi.
+
+# Gapminder 
+
+Använd `ggplot` för att återskapa (statiska versioner) av några figurer från [Hans Roslings föredrag](https://www.ted.com/speakers/hans_rosling). Data finns i `library(gapminder)`.
