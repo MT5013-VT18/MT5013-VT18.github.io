@@ -7,6 +7,6 @@ Kursen avsultas med ett individuellt projekt i formen av ett data-intensivt blog
 
 För att få inspiration och en uppfattning om den avsedda omfattningen, se nedanstående inlägg:
 
-* [The Olympic Medal Table Visualized Gapminder Style.](http://staff.math.su.se/hoehle/blog/2016/08/21/gapMedal.html)
+* [The Olympic Medal Table Visualized Gapminder Style.](http://staff.math.su.se/hoehle/blog/2016/08/21/gapMedal.html) [[.Rmd]](https://github.com/hoehleatsu/hoehleatsu.github.io/blob/master/_source/2016-08-21-gapMedal.Rmd)
 * [Vilken är Kents mest deprimerande låt?](http://dataland.rbind.io/2017/10/15/vilken-%C3%A4r-kents-mest-deprimerande-lat/)
 * [Are #python users more likely to get into Slytherin?](http://www.masalmon.eu/2018/01/01/sortinghat/)
