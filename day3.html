@@ -11,7 +11,7 @@
 
 
 
-<title>Schedule VT18</title>
+<title>Dag 3: Tidyverse: group_by och summarise, mer ggplot2</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -202,102 +202,53 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Schedule VT18</h1>
+<h1 class="title toc-ignore">Dag 3: Tidyverse: group_by och summarise, mer ggplot2</h1>
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#gor-detta-innan-lektionen">Gör detta innan lektionen</a></li>
+<li><a href="#under-lektionen">Under lektionen</a><ul>
+<li><a href="#latar-pa-p3">Låtar på P3</a></li>
+<li><a href="#systembolagets-sortiment">Systembolagets sortiment</a></li>
+</ul></li>
+</ul>
+</div>
 
-<table>
-<thead>
-<tr class="header">
-<th align="left">Day</th>
-<th align="left">Time</th>
-<th align="left">Topic</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">måndag, 2018-01-15</td>
-<td align="left">09:15-12:00</td>
-<td align="left"><a href="day1.html">Introduction. Software, GitHub and Markdown.</a> <a href="https://rawgit.com/MT5013-VT18/MT5013-VT18.github.io/master/slides/slide1.html#1">[Slides]</a></td>
-</tr>
-<tr class="even">
-<td align="left">onsdag, 2018-01-17</td>
-<td align="left">09:15-12:00</td>
-<td align="left"><a href="day2.html">Tidyverse: Basic dplyr and ggplot2.</a> <a href="https://rawgit.com/MT5013-VT18/MT5013-VT18.github.io/master/slides/slide2.html#1">[Slides]</a></td>
-</tr>
-<tr class="odd">
-<td align="left">torsdag, 2018-01-18</td>
-<td align="left">12:45-15:30</td>
-<td align="left"><a href="day3.html">Tidyverse: group_by and summarise, more ggplot2.</a></td>
-</tr>
-<tr class="even">
-<td align="left">måndag, 2018-01-22</td>
-<td align="left">12:45-15:30</td>
-<td align="left">Exploratory data analysis</td>
-</tr>
-<tr class="odd">
-<td align="left">torsdag, 2018-01-25</td>
-<td align="left">12:45-15:30</td>
-<td align="left">Exploring high-dimensional data: Principal components and clustering</td>
-</tr>
-<tr class="even">
-<td align="left">måndag, 2018-01-29</td>
-<td align="left">12:45-15:30</td>
-<td align="left">Cleaning data: Tidy data. Long to wide and back.</td>
-</tr>
-<tr class="odd">
-<td align="left">onsdag, 2018-01-31</td>
-<td align="left">09:15-12:00</td>
-<td align="left">Relational data: Combining tables with dplyr joins.</td>
-</tr>
-<tr class="even">
-<td align="left">torsdag, 2018-02-01</td>
-<td align="left">12:45-15:30</td>
-<td align="left">Relational data: SQL basics. <strong>Guest lecture: Sebastian Tengborg from <a href="https://king.com/sv">King</a></strong></td>
-</tr>
-<tr class="odd">
-<td align="left">måndag, 2018-02-05</td>
-<td align="left">12:45-15:30</td>
-<td align="left">Text data: Regular expressions.</td>
-</tr>
-<tr class="even">
-<td align="left">torsdag, 2018-02-08</td>
-<td align="left">12:45-15:30</td>
-<td align="left">Using APIs: httr, JSON and XML.</td>
-</tr>
-<tr class="odd">
-<td align="left">måndag, 2018-02-12</td>
-<td align="left">12:45-15:30</td>
-<td align="left">Web-scraping: Basic rvest.</td>
-</tr>
-<tr class="even">
-<td align="left">torsdag, 2018-02-15</td>
-<td align="left">12:45-15:30</td>
-<td align="left">R Programming: Programming with functions.</td>
-</tr>
-<tr class="odd">
-<td align="left">måndag, 2018-02-19</td>
-<td align="left">12:45-15:30</td>
-<td align="left">R Programming: Functional programming with purrr. <strong>Guest lecture: Mehrdad Mamaghani from <a href="https://primegroup.com/article/insight-mapping-usa-on-facebook-the-case-for-macro-targeting/">Prime</a></strong></td>
-</tr>
-<tr class="even">
-<td align="left">torsdag, 2018-02-22</td>
-<td align="left">12:45-15:30</td>
-<td align="left">Presenting: Principles of visualisation.</td>
-</tr>
-<tr class="odd">
-<td align="left">tisdag, 2018-02-27</td>
-<td align="left">13:00-17:00</td>
-<td align="left">Exam.</td>
-</tr>
-<tr class="even">
-<td align="left">måndag, 2018-03-12</td>
-<td align="left">12:45-16:00</td>
-<td align="left">Project presentation.</td>
-</tr>
-</tbody>
-</table>
+<div id="gor-detta-innan-lektionen" class="section level2">
+<h2>Gör detta innan lektionen</h2>
+<p>Läs <a href="http://r4ds.had.co.nz/">R4DS</a> kapitel 5.6-5.7, 3.7-3.10.</p>
+<p>Lös övningskapitel <em>Grouping and Summarizing</em> och <em>Types of vizualisations</em> på <a href="https://www.datacamp.com/groups/statistisk-databehandling-vt18/details">DataCamp</a>.</p>
+</div>
+<div id="under-lektionen" class="section level2">
+<h2>Under lektionen</h2>
+<p>Öppna ditt <code>Classroom</code>-projekt och kör “Pull Branch” (under Tools &gt; Version control i RStudio) för att updatera repot med nya filer.</p>
+<div id="latar-pa-p3" class="section level3">
+<h3>Låtar på P3</h3>
+<p>Filen <a href="https://github.com/MT5013-VT18/Classroom/blob/master/data/P3_songs2018-01-18.csv"><code>data/P3_songs2018-01-18.csv</code></a> innehåller de senaste 500 låtarna spelade på P3 (från morgonen 2018-01-18). Data är hämtade från <a href="http://sverigesradio.se/oppetapi">Sveriges Radios öppna API</a> med <a href="https://github.com/MT5013-VT18/Classroom/blob/master/R/P3_songs.R"><code>R/P3_songs.R</code></a>. Läs in den med</p>
+<pre class="r"><code>library(tidyverse)
+p3_songs &lt;- read_csv(&quot;data/P3_songs2018-01-18.csv&quot;)</code></pre>
+<ul>
+<li>Använd <code>group_by</code>, <code>summarise</code>, <code>n()</code> och <code>arrange</code> för att lista de mest spelade låtarna.</li>
+<li>Hur stor andel av låtarna finns bara med en gång?</li>
+</ul>
+</div>
+<div id="systembolagets-sortiment" class="section level3">
+<h3>Systembolagets sortiment</h3>
+<p>Läs in som <a href="https://mt5013-vt18.github.io/day2.html">förra lektionen</a> och filtrera ut det ordinarie sortimentet.</p>
+<ul>
+<li>Hur många produkter finns i varje varugrupp? Du kan filtrera bort produkter med <code>NA</code> i fältet <code>Varugrupp</code> genom att använda funktionen <code>is.na</code>.</li>
+<li>Filtrera ut röda viner med årgång 2010-2017. Bestäm sedan medelvärdet av <code>PrisPerLiter</code> för varje årgång och plotta med <code>ggplot</code>.</li>
+<li>Välj ut den billigaste (i <code>PrisPerLiter</code>) produkten i varje <code>Varugrupp</code>. Detta kan t.ex. göras genom att
+<ul>
+<li>gruppera efter varugrupp med <code>group_by</code></li>
+<li>införa en variabel <code>grupp_rank</code> med <code>mutate</code> och <code>order</code> (i den grupperade tabellen!)</li>
+<li>filtrera ut produkter med <code>grupp_rank == 1</code></li>
+</ul></li>
+</ul>
+</div>
+</div>
 
 
 

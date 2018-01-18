@@ -1,0 +1,45 @@
+---
+title: 'Dag 3: Tidyverse: group_by och summarise, mer ggplot2'
+output:
+  html_document:
+    toc: true
+    toc_depth: 4    
+---
+
+## Gör detta innan lektionen
+
+Läs [R4DS](http://r4ds.had.co.nz/) kapitel 5.6-5.7, 3.7-3.10.
+
+Lös övningskapitel *Grouping and Summarizing* och *Types of vizualisations* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18/details).
+
+## Under lektionen
+
+Öppna ditt `Classroom`-projekt och kör "Pull Branch" (under Tools > Version control i RStudio) för att updatera repot med nya filer.
+
+### Låtar på P3
+
+Filen [`data/P3_songs2018-01-18.csv`](https://github.com/MT5013-VT18/Classroom/blob/master/data/P3_songs2018-01-18.csv) innehåller de senaste 500 låtarna spelade på P3 (från morgonen 2018-01-18). Data är
+hämtade från [Sveriges Radios öppna API](http://sverigesradio.se/oppetapi) med [`R/P3_songs.R`](https://github.com/MT5013-VT18/Classroom/blob/master/R/P3_songs.R). Läs in den med
+```{r, eval = FALSE}
+library(tidyverse)
+p3_songs <- read_csv("data/P3_songs2018-01-18.csv")
+```
+
+
+* Använd `group_by`, `summarise`, `n()` och `arrange` för att lista de mest spelade låtarna.
+* Hur stor andel av låtarna finns bara med en gång?
+
+### Systembolagets sortiment
+
+Läs in som [förra lektionen](https://mt5013-vt18.github.io/day2.html) och filtrera ut det ordinarie sortimentet.
+
+* Hur många produkter finns i varje varugrupp? Du kan filtrera bort produkter med `NA` i fältet `Varugrupp`  genom att använda funktionen `is.na`.
+* Filtrera ut röda viner med årgång 2010-2017. Bestäm sedan medelvärdet av `PrisPerLiter` för varje årgång och plotta med `ggplot`.
+* Välj ut den billigaste (i `PrisPerLiter`) produkten i varje `Varugrupp`. Detta kan t.ex. göras genom att 
+    - gruppera efter varugrupp med `group_by`
+    - införa en variabel `grupp_rank` med `mutate` och `order` (i den grupperade tabellen!)
+    - filtrera ut produkter med `grupp_rank == 1`
+    
+
+
+
