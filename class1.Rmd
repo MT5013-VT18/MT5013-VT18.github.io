@@ -8,13 +8,12 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Börja med att skapa ett R-projekt "Classroom" genom att klona `https://github.com/MT5013-VT18/Classroom`, detta kommer uppdateras under kursens gång. Därefter skapar du lämpligtvis ett R Mardown dokument `Class1.Rmd` som du arbetar i.
-
+Börja med att skapa ett R-projekt "Classroom" genom att klona repot `https://github.com/MT5013-VT18/Classroom`. Därefter skapar du lämpligtvis ett R Mardown dokument `Class1.Rmd` som du arbetar i. Vi kommer uppdatera repot under kursens gång, för att föra över uppdateringarna till ditt lokala bibliotek gör du en "pull" (Tools > Version control > Pull branches).
 
 
 # Systembolagets sortiment
 
-Systembolagets sortiment från 2018-01-12 sinns i filen `data/Products-2018-jan-12-081155.csv`. Den är hämtad från <https://www.systembolaget.se/api/> och sparad som `.csv`-fil från Excel (ej helt reproducerbart!). Läs in och undersök innehållet med
+Systembolagets sortiment från 2018-01-12 finns i filen `data/Products-2018-jan-12-081155.csv`. Den är hämtad från <https://www.systembolaget.se/api/> och sparad som `.csv`-fil från Excel (ej helt reproducerbart!). Läs in och undersök innehållet med
 ```{r, eval = FALSE}
 library(tidyverse)
 Sortiment_hela <- read_delim("data/Products-2018-jan-12-081155.csv", 
@@ -22,9 +21,9 @@ Sortiment_hela <- read_delim("data/Products-2018-jan-12-081155.csv",
                  locale = locale(encoding = "latin1", decimal_mark = "."))
 ```
 
-### Uppgifter (träning av `arrange`, `filter`, `mutate`, `%>%`)
+### Uppgifter (träning av `arrange`, `filter`, `mutate`, `select`, `%>%`)
 
-* Variabeln `Alkoholhalt` har blivit klassad som `character` av `read.csv2` eftersom dess värden innehåller ett procenttecken. Gör om den till numerisk genom att först ta bort procenttecknet (t.ex. med `gsub`) och sedan transformera med `as.numeric`.
+* Variabeln `Alkoholhalt` har blivit klassad som `character` av `read_delim`, eftersom dess värden innehåller ett procenttecken. Gör om den till numerisk med `mutate` genom att först ta bort procenttecknet (t.ex. med `gsub`) och sedan transformera med `as.numeric`.
 
 * Ett fåtal produkter har fått varugrupp `Röda` respektive `Vita` istället för `Rött vin` respektive `Vitt vin`. Korrigera detta, t.ex. genom att använda `mutate` med ett `ifelse`-kommando.
 
@@ -48,16 +47,20 @@ För ordinarie sortiment:
 
 # Olympiska vintermedaljer 
 
-Filen `data/Winter_medals2018-01-16.csv` innehåller antalet medaljer per land vid vinter OS sedan 1980, samt landets population. Datamaterialet är skapad av [`R/Winter_medals.R`](https://github.com/MT5013-VT18/Classroom/R/Winter_medals.R) som innehåller mer information, speciellt om hanteringen av länder som delats eller slagits ihop under perioden.
+Filen `data/Winter_medals2018-01-16.csv` innehåller antalet medaljer per land och OS-år vid vinter OS sedan 1980 samt landets dåvarande population. Datamaterialet är skapad av [`R/Winter_medals.R`](https://github.com/MT5013-VT18/Classroom/R/Winter_medals.R) som innehåller mer information, speciellt om hanteringen av länder som delats eller slagits ihop under perioden. Du läser in med
+```{r, eval = FALSE}
+winter_medals <- read_csv("data/Winter_medals2018-01-16.csv")
+```
 
-### Uppgifter (träning av `arrange`, `filter`, `mutate`, `%>%`)
+
+### Uppgifter (träning av `arrange`, `filter`, `mutate`, `select`, `%>%`)
 
 * Skapa en variabel `medals_per_mill`, antal medaljer per miljoner invånare.
 * Skapa en tabell med de 10 främsta länderna rankat efter `medals_per_mill` under vinter OS 2014.
 
-### Uppgifter (träning av `ggplot`, `geom_point`, `geom_line`, `facet_frap`)
+### Uppgifter (träning av `ggplot`, `geom_point`, `geom_line`, `facet_wrap`)
 
-* Plotta det totala antalet medaljer som funktion av år för Sverige, Norge och Finland i samma figur (använd t.ex. `%in%` för att filtrera) och skilj på länderna med lämplig "aesthetic" (se `?geom_point` för en lista på vilka `gaom_point` förstår).
+* Plotta det totala antalet medaljer som funktion av år för Sverige, Norge och Finland i samma figur (använd t.ex. `%in%` för att filtrera) och skilj på länderna med lämplig "aesthetic" (se `?geom_point` för en lista på vilka `geom_point` förstår).
 * Plotta antalet svenska guld, silver och brons (bonus: färglägg punkterna i guld/silver/brons-färg)  som funktion av år i samma figur.
 * Som föregående, fast med en "`facet`" för var och en av Sverige, Norge och Finland.
 
@@ -65,3 +68,6 @@ Filen `data/Winter_medals2018-01-16.csv` innehåller antalet medaljer per land v
 
 * Använd din fantasi.
 
+## Gapminder 
+
+Använd `ggplot` för att återskapa (statiska versioner) av några figurer från [Hans Roslings föredrag](https://www.ted.com/speakers/hans_rosling). Data finns i `library(gapminder)`.

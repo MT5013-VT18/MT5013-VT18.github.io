@@ -209,16 +209,16 @@ $(document).ready(function () {
 </div>
 
 
-<p>Börja med att skapa ett R-projekt “Classroom” genom att klona <code>https://github.com/MT5013-VT18/Classroom</code>, detta kommer uppdateras under kursens gång. Därefter skapar du lämpligtvis ett R Mardown dokument <code>Class1.Rmd</code> som du arbetar i.</p>
+<p>Börja med att skapa ett R-projekt “Classroom” genom att klona repot <code>https://github.com/MT5013-VT18/Classroom</code>. Därefter skapar du lämpligtvis ett R Mardown dokument <code>Class1.Rmd</code> som du arbetar i. Vi kommer uppdatera repot under kursens gång, för att föra över uppdateringarna till ditt lokala bibliotek gör du en “pull” (Tools &gt; Version control &gt; Pull branches).</p>
 <div id="systembolagets-sortiment" class="section level1">
 <h1>Systembolagets sortiment</h1>
-<p>Systembolagets sortiment från 2018-01-12 sinns i filen <code>data/Products-2018-jan-12-081155.csv</code>. Den är hämtad från <a href="https://www.systembolaget.se/api/" class="uri">https://www.systembolaget.se/api/</a> och sparad som <code>.csv</code>-fil från Excel (ej helt reproducerbart!). Läs in och undersök innehållet med</p>
+<p>Systembolagets sortiment från 2018-01-12 finns i filen <code>data/Products-2018-jan-12-081155.csv</code>. Den är hämtad från <a href="https://www.systembolaget.se/api/" class="uri">https://www.systembolaget.se/api/</a> och sparad som <code>.csv</code>-fil från Excel (ej helt reproducerbart!). Läs in och undersök innehållet med</p>
 <pre class="r"><code>library(tidyverse)
 Sortiment_hela &lt;- read_delim(&quot;data/Products-2018-jan-12-081155.csv&quot;, 
                  delim = &quot;;&quot;,
                  locale = locale(encoding = &quot;latin1&quot;, decimal_mark = &quot;.&quot;))</code></pre>
-<div id="uppgifter-traning-av-arrange-filter-mutate" class="section level3">
-<h3>Uppgifter (träning av <code>arrange</code>, <code>filter</code>, <code>mutate</code>, <code>%&gt;%</code>)</h3>
+<div id="uppgifter-traning-av-arrange-filter-mutate-select" class="section level3">
+<h3>Uppgifter (träning av <code>arrange</code>, <code>filter</code>, <code>mutate</code>, <code>select</code>, <code>%&gt;%</code>)</h3>
 <ul>
 <li><p>Variabeln <code>Alkoholhalt</code> har blivit klassad som <code>character</code> av <code>read.csv2</code> eftersom dess värden innehåller ett procenttecken. Gör om den till numerisk genom att först ta bort procenttecknet (t.ex. med <code>gsub</code>) och sedan transformera med <code>as.numeric</code>.</p></li>
 <li><p>Ett fåtal produkter har fått varugrupp <code>Röda</code> respektive <code>Vita</code> istället för <code>Rött vin</code> respektive <code>Vitt vin</code>. Korrigera detta, t.ex. genom att använda <code>mutate</code> med ett <code>ifelse</code>-kommando.</p></li>
@@ -245,18 +245,19 @@ Sortiment_hela &lt;- read_delim(&quot;data/Products-2018-jan-12-081155.csv&quot;
 </div>
 <div id="olympiska-vintermedaljer" class="section level1">
 <h1>Olympiska vintermedaljer</h1>
-<p>Filen <code>data/Winter_medals2018-01-16.csv</code> innehåller antalet medaljer per land vid vinter OS sedan 1980, samt landets population. Datamaterialet är skapad av <a href="https://github.com/MT5013-VT18/Classroom/R/Winter_medals.R"><code>R/Winter_medals.R</code></a> som innehåller mer information, speciellt om hanteringen av länder som delats eller slagits ihop under perioden.</p>
-<div id="uppgifter-traning-av-arrange-filter-mutate-1" class="section level3">
-<h3>Uppgifter (träning av <code>arrange</code>, <code>filter</code>, <code>mutate</code>, <code>%&gt;%</code>)</h3>
+<p>Filen <code>data/Winter_medals2018-01-16.csv</code> innehåller antalet medaljer per land och OS-år vid vinter OS sedan 1980 samt landets dåvarande population. Datamaterialet är skapad av <a href="https://github.com/MT5013-VT18/Classroom/R/Winter_medals.R"><code>R/Winter_medals.R</code></a> som innehåller mer information, speciellt om hanteringen av länder som delats eller slagits ihop under perioden. Du läser in med</p>
+<pre class="r"><code>winter_medals &lt;- read_csv(&quot;data/Products-2018-jan-12-081155.csv&quot;&quot;)</code></pre>
+<div id="uppgifter-traning-av-arrange-filter-mutate-select-1" class="section level3">
+<h3>Uppgifter (träning av <code>arrange</code>, <code>filter</code>, <code>mutate</code>, <code>select</code>, <code>%&gt;%</code>)</h3>
 <ul>
 <li>Skapa en variabel <code>medals_per_mill</code>, antal medaljer per miljoner invånare.</li>
 <li>Skapa en tabell med de 10 främsta länderna rankat efter <code>medals_per_mill</code> under vinter OS 2014.</li>
 </ul>
 </div>
-<div id="uppgifter-traning-av-ggplot-geom_point-geom_line-facet_frap" class="section level3">
-<h3>Uppgifter (träning av <code>ggplot</code>, <code>geom_point</code>, <code>geom_line</code>, <code>facet_frap</code>)</h3>
+<div id="uppgifter-traning-av-ggplot-geom_point-geom_line-facet_wrap-1" class="section level3">
+<h3>Uppgifter (träning av <code>ggplot</code>, <code>geom_point</code>, <code>geom_line</code>, <code>facet_wrap</code>)</h3>
 <ul>
-<li>Plotta det totala antalet medaljer som funktion av år för Sverige, Norge och Finland i samma figur (använd t.ex. <code>%in%</code> för att filtrera) och skilj på länderna med lämplig “aesthetic” (se <code>?geom_point</code> för en lista på vilka <code>gaom_point</code> förstår).</li>
+<li>Plotta det totala antalet medaljer som funktion av år för Sverige, Norge och Finland i samma figur (använd t.ex. <code>%in%</code> för att filtrera) och skilj på länderna med lämplig “aesthetic” (se <code>?geom_point</code> för en lista på vilka <code>geom_point</code> förstår).</li>
 <li>Plotta antalet svenska guld, silver och brons (bonus: färglägg punkterna i guld/silver/brons-färg) som funktion av år i samma figur.</li>
 <li>Som föregående, fast med en “<code>facet</code>” för var och en av Sverige, Norge och Finland.</li>
 </ul>
@@ -266,6 +267,10 @@ Sortiment_hela &lt;- read_delim(&quot;data/Products-2018-jan-12-081155.csv&quot;
 <ul>
 <li>Använd din fantasi.</li>
 </ul>
+</div>
+<div id="gapminder" class="section level2">
+<h2>Gapminder</h2>
+<p>Använd <code>ggplot</code> för att återskapa (statiska versioner) av några figurer från <a href="https://www.ted.com/speakers/hans_rosling">Hans Roslings föredrag</a>. Data finns i <code>library(gapminder)</code>.</p>
 </div>
 </div>
 
