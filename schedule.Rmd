@@ -22,7 +22,7 @@ topics <- c(
     "[Introduction. Software, GitHub and Markdown.](day1.html) [[Slides]](https://rawgit.com/MT5013-VT18/MT5013-VT18.github.io/master/slides/slide1.html#1)",
     "[Tidyverse: Basic dplyr and ggplot2.](day2.html) [[Slides]](https://rawgit.com/MT5013-VT18/MT5013-VT18.github.io/master/slides/slide2.html#1)",
     "[Tidyverse: group_by and summarise, more ggplot2.](day3.html)",
-    "Exploratory data analysis",
+    "[Exploratory data analysis](day4.html)",
     "Exploring high-dimensional data: Principal components and clustering",
     "Cleaning data: Tidy data. Long to wide and back.",
     "Relational data: Combining tables with dplyr joins.",

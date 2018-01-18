@@ -1,0 +1,14 @@
+---
+title: 'Dag 4: Explorativ dataanalys'
+output:
+  html_document:
+    toc: true
+    toc_depth: 4    
+---
+
+## Gör detta innan lektion
+
+Läs [R4DS](http://r4ds.had.co.nz/) kapitel 7.
+
+Lös övningskapitel *Exploring Categorical Data* och *Exploring Numerical Data* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18/details).
+
