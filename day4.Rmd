@@ -12,3 +12,48 @@ Läs [R4DS](http://r4ds.had.co.nz/) kapitel 7.
 
 Lös övningskapitel *Exploring Categorical Data* och *Exploring Numerical Data* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18/details).
 
+## Att göra under lektionen
+
+
+### Systembolegets sortiment
+
+* Filtrera ut varugrupperna `c("Vitt vin", "Rött vin", "Rosévin", "Mousserande vin")` med årgångar 2010-2017. Prova och jämför nedanstående stapeldiagram
+    * `ggplot` med `aes(x = Argang)`, `geom_bar()` och 
+    * `ggplot` med `aes(x = Argang)` och `geom_bar()` `facet_wrap(~ Varugrupp)` (lägg eventuellt till argumentet `scale = "free_y"` till `facet_wrap`)
+    * `ggplot` med `aes(x = Argang, fill = Varugrupp)` och
+        * `geom_bar()`
+        * `geom_bar(position = "dodge")`
+        * `geom_bar(position = "fill")`
+
+
+* Återskapa nedanstående plot (för Röda viner från det ordinarie sortimentet)
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+read_delim("../Classroom/data/Products-2018-jan-12-081155.csv", 
+                 delim = ";",
+                 locale = locale(encoding = "latin1", decimal_mark = ".")) %>% 
+    mutate(Alkoholhalt = as.numeric(gsub("%", "", Alkoholhalt))) %>% 
+    mutate(Varugrupp = ifelse(Varugrupp == "Röda", "Rött vin", Varugrupp)) %>% 
+    mutate(Varugrupp = ifelse(Varugrupp == "Vita", "Vitt vin", Varugrupp)) %>% 
+    filter(SortimentText == "Ordinarie sortiment") %>% 
+    filter(Varugrupp %in% c("Rött vin")) %>% 
+    filter(Argang %in% 2010:2017) %>% 
+    mutate(Argang = as.factor(Argang)) %>% 
+    ggplot(aes(x = Argang, y = PrisPerLiter))+ geom_boxplot()+ ggtitle("Röda viner")
+```
+
+* Gör en `box_plot` av `PrisPerLiter` på log-skala, med `x = Varugrupp`. Prova `coord_flip` för att göra det hela mer läsbart.
+
+
+### Vintermedaljer
+
+Följande kod gör om medaljdata till så kallat "långt" format (mer om detta nästa tillfälle!) som är enklare att arbeta med i `ggplot`:
+```{r, eval = FALSE}
+medal_long <- read_csv("data/Winter_medals2018-01-16.csv") %>% 
+    select(-Total) %>% 
+    gather(Denomination, Number, c("Gold", "Silver", "Bronze"))
+```
+Kolumnen `Denomination` innehåller nu medaljvalör och `Number` antal av denna valör, använd `group_by` och `summarise` för att summera det totala antalet medaljer per valör och land. Illustrera andelen olika medajvalörer för länderna, t.ex. genom att använda `geom_bar` med `stat = "identity` och `position = "fill"`. 
+
+
+

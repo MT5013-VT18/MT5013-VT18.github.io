@@ -209,6 +209,10 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#gor-detta-innan-lektion">Gör detta innan lektion</a></li>
+<li><a href="#att-gora-under-lektionen">Att göra under lektionen</a><ul>
+<li><a href="#systembolegets-sortiment">Systembolegets sortiment</a></li>
+<li><a href="#vintermedaljer">Vintermedaljer</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -216,6 +220,35 @@ $(document).ready(function () {
 <h2>Gör detta innan lektion</h2>
 <p>Läs <a href="http://r4ds.had.co.nz/">R4DS</a> kapitel 7.</p>
 <p>Lös övningskapitel <em>Exploring Categorical Data</em> och <em>Exploring Numerical Data</em> på <a href="https://www.datacamp.com/groups/statistisk-databehandling-vt18/details">DataCamp</a>.</p>
+</div>
+<div id="att-gora-under-lektionen" class="section level2">
+<h2>Att göra under lektionen</h2>
+<div id="systembolegets-sortiment" class="section level3">
+<h3>Systembolegets sortiment</h3>
+<ul>
+<li>Filtrera ut varugrupperna <code>c(&quot;Vitt vin&quot;, &quot;Rött vin&quot;, &quot;Rosévin&quot;, &quot;Mousserande vin&quot;)</code> med årgångar 2010-2017. Prova och jämför nedanstående stapeldiagram
+<ul>
+<li><code>ggplot</code> med <code>aes(x = Argang)</code>, <code>geom_bar()</code> och</li>
+<li><code>ggplot</code> med <code>aes(x = Argang)</code> och <code>geom_bar()</code> <code>facet_wrap(~ Varugrupp)</code> (lägg eventuellt till argumentet <code>scale = &quot;free_y&quot;</code> till <code>facet_wrap</code>)</li>
+<li><code>ggplot</code> med <code>aes(x = Argang, fill = Varugrupp)</code> och
+<ul>
+<li><code>geom_bar()</code></li>
+<li><code>geom_bar(position = &quot;dodge&quot;)</code></li>
+<li><code>geom_bar(position = &quot;fill&quot;)</code></li>
+</ul></li>
+</ul></li>
+<li><p>Återskapa nedanstående plot (för Röda viner från det ordinarie sortimentet) <img src="day4_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p></li>
+<li><p>Gör en <code>box_plot</code> av <code>PrisPerLiter</code> på log-skala, med <code>x = Varugrupp</code>. Prova <code>coord_flip</code> för att göra det hela mer läsbart.</p></li>
+</ul>
+</div>
+<div id="vintermedaljer" class="section level3">
+<h3>Vintermedaljer</h3>
+<p>Följande kod gör om medaljdata till så kallat “långt” format (mer om detta nästa tillfälle!) som är enklare att arbeta med i <code>ggplot</code>:</p>
+<pre class="r"><code>medal_long &lt;- read_csv(&quot;data/Winter_medals2018-01-16.csv&quot;) %&gt;% 
+    select(-Total) %&gt;% 
+    gather(Denomination, Number, c(&quot;Gold&quot;, &quot;Silver&quot;, &quot;Bronze&quot;))</code></pre>
+<p>Kolumnen <code>Denomination</code> innehåller nu medaljvalör och <code>Number</code> antal av denna valör, använd <code>group_by</code> och <code>summarise</code> för att summera det totala antalet medaljer per valör och land. Illustrera andelen olika medajvalörer för länderna, t.ex. genom att använda <code>geom_bar</code> med <code>stat = &quot;identity</code> och <code>position = &quot;fill&quot;</code>.</p>
+</div>
 </div>
 
 
