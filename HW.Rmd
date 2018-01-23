@@ -1,14 +1,18 @@
 ---
-title: "Homework"
+title: "Individuella hemuppgifter (3 hp, betyg G/U.)"
 output: html_document
 ---
 
-The homework part of the course (3 hp) consists of six assignments with a final grade of PASS/FAIL.
+Kursen innehåller sex hemupgifter vars lösningar skall laddas upp på GitHub innan 24:00 vid angiven deadline. Hemuppgifterna skall lösas självständigt.
+
+Det ingår även att göra en kamratgranskning av en annan students lösning, betygssättning utförs dock av läraren.
+
+
 
 ```{r, echo =FALSE}
 HW <- c(
     "[HW1: GitHub test-run](HW1.html)",
-    "HW2",
+    "[HW2: Grundläggande tidyverse](HW2.html)",
     "HW3",
     "HW4",
     "HW5",
