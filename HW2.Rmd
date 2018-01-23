@@ -1,0 +1,64 @@
+---
+title: "HW2: Grundläggande tidyverse"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+library(readxl)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Följande uppgifter skall lösas i ett R-Markdown dokument med `output: github_document`. Alla kodsnuttar skall vara synliga (`echo = TRUE`) undantaget den uppgift som skall ges i löpande text. För lättläst kod, följ t.ex. [Google's R Style guide](https://google.github.io/styleguide/Rguide.xml) eller [Hadley Wickham's style guide](http://adv-r.had.co.nz/Style.html) så långt som möjligt (snåla inte med mellanslag i koden!). Både den genererade `.md` filen och källfilen (`.Rmd`) skall laddas upp på GitHub under biblioteket `HW_efternamn_initial/HW2`. Det skall finnas en länk till `.md` filen från `HW_efternamn_initial/README.md` som i förra uppgiften.
+
+Inled ditt dokument genom att ladda paketen `tidyverse`, `readxl` (installeras som del av tidyverse, men kräver separat `library`-anrop), `knitr` och `ggmap`. Paketen skall laddas "tyst" med `suppressPackageStartupMessages`. Avsluta dokumentet med en kodsnutt innehållande `sessionInfo()`.
+
+Data till uppgiften finns på <https://github.com/MT5013-VT18/HW_data> som `SpeciesObservations-2018-01-23-08-11-26.xlsx` och `booli_sold.csv`, ladda ner dessa och placera i ett uderbibliotek `data` till till `Homework`-repo.
+
+# Fågelskådning
+
+På [Artportalen](https://www.artportalen.se/) kan man rapportera sina observationer av djur, växter och svampar. I denna uppgiften skall du analysera den senaste månadens rapporter, med fokus på Fåglar som är den överlägset vanligaste gruppen i materialet. Data är hämtat från [Analysportalen för biodiversitetsdata](https://www.analysisportal.se/).
+
+## Inledande analys
+
+Vi läser in och undersöker data med `glimpse`:
+```{r}
+artdata <- read_excel("data/SpeciesObservations-2018-01-23-08-11-26.xlsx")
+glimpse(artdata)
+```
+
+Vi noterar här två saker:
+
+* Några variabelnamn innehåller blanktecken vilket kan vara opraktiskt, detta fixas enkelt med
+```{r, eval = FALSE}
+names(artdata) <- gsub(" ", "_", names(artdata))
+```
+
+* Vi ser även att `read_excel` klassat samtliga kolumner som `character`. Konvertera variablerna `X` och `Y` till numeriskt format med `as.numeric` (först måste du byta kommatecken mot punkt, t.ex. med `gsub`). Konvertera även datumen med `as.Date`.
+
+## Fågelobservationer
+Filtrera ut organismgruppen Fåglar och lös följande uppgifter:
+
+* Vem är den flitigaste observatören? Ange svaret i löpande text.
+* Skapa en tabell över de 10 mest rapporterade fågelarterna under perioden.
+* Inför variabeln `Veckodag` med hjälp av  funktionen `Weekdays`. Gör ett stapeldiagram över det genomsnittliga antalet observationer per veckodag (försök gärna placera staplarna i lämplig ordning).
+* Plotta det totala antalet rapporter per dag som punkter sammanbundna med linjer.
+* Efter nyår får fågelskådarna bråttom med att fylla på sina årliga krysslistor, där de bockar av observerade arter. Gör en tabell över de 10 observatörer som har flest kryss 2018, d.v.s de som rapporterat flest unika arter.
+* Med paketet `ggmap` kan man enkelt plotta data på kartor. Installera detta och illustrera någon geografisk aspekt av data genom att plotta punkter färglagda efter någon variabel. En grundkarta får du t.ex. med `map <- get_map("Stockholm")`, sedan plottar du med `ggmap(map) + geom_point(data = artdata, aes(x=X, y=Y, ...`. Filtrera gärna ut en delmängd av materialet innan plot.
+
+
+# Slutpriser på Booli
+
+Filen `data/booli_sold.csv` innehåller data på 500 sålda bostäder i Norra Djurgården, hämtade från [Boolis öppna API](https://www.booli.se/api/).
+
+
+* Illustrera hur slutpris beror på bostadsyta med lämplig figur.
+* Illustrera hur pris per kvadratmeter utvecklats med tiden under perioden med lämplig figur.
+* Illustrera valfri aspekt av data med en tabell.
+* Illustrera valfri aspekt av data med boxplottar (`geom_boxplot`).
+* Illustrera valfri aspekt av data på en karta.
+
+
+
+

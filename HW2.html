@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>HW2: Grundläggande tidyverse</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statical Data Processing (MT5013)</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="schedule.html">Schedule</a>
+</li>
+<li>
+  <a href="HW.html">Homework</a>
+</li>
+<li>
+  <a href="exam.html">Exam</a>
+</li>
+<li>
+  <a href="project.html">Project</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">HW2: Grundläggande tidyverse</h1>
+
+</div>
+
+
+<p>Följande uppgifter skall lösas i ett R-Markdown dokument med <code>output: github_document</code>. Alla kodsnuttar skall vara synliga (<code>echo = TRUE</code>) undantaget den uppgift som skall ges i löpande text. För lättläst kod, följ t.ex. <a href="https://google.github.io/styleguide/Rguide.xml">Google’s R Style guide</a> eller <a href="http://adv-r.had.co.nz/Style.html">Hadley Wickham’s style guide</a> så långt som möjligt (snåla inte med mellanslag i koden!). Både den genererade <code>.md</code> filen och källfilen (<code>.Rmd</code>) skall laddas upp på GitHub under biblioteket <code>HW_efternamn_initial/HW2</code>. Det skall finnas en länk till <code>.md</code> filen från <code>HW_efternamn_initial/README.md</code> som i förra uppgiften.</p>
+<p>Inled ditt dokument genom att ladda paketen <code>tidyverse</code>, <code>readxl</code> (installeras som del av tidyverse, men kräver separat <code>library</code>-anrop), <code>knitr</code> och <code>ggmap</code>. Paketen skall laddas “tyst” med <code>suppressPackageStartupMessages</code>. Avsluta dokumentet med en kodsnutt innehållande <code>sessionInfo()</code>.</p>
+<p>Data till uppgiften finns på <a href="https://github.com/MT5013-VT18/HW_data" class="uri">https://github.com/MT5013-VT18/HW_data</a> som <code>SpeciesObservations-2018-01-23-08-11-26.xlsx</code> och <code>booli_sold.csv</code>, ladda ner dessa och placera i ett uderbibliotek <code>data</code> till till <code>Homework</code>-repo.</p>
+<div id="fagelskadning" class="section level1">
+<h1>Fågelskådning</h1>
+<p>På <a href="https://www.artportalen.se/">Artportalen</a> kan man rapportera sina observationer av djur, växter och svampar. I denna uppgiften skall du analysera den senaste månadens rapporter, med fokus på Fåglar som är den överlägset vanligaste gruppen i materialet. Data är hämtat från <a href="https://www.analysisportal.se/">Analysportalen för biodiversitetsdata</a>.</p>
+<div id="inledande-analys" class="section level2">
+<h2>Inledande analys</h2>
+<p>Vi läser in och undersöker data med <code>glimpse</code>:</p>
+<pre class="r"><code>artdata &lt;- read_excel(&quot;data/SpeciesObservations-2018-01-23-08-11-26.xlsx&quot;)
+glimpse(artdata)</code></pre>
+<pre><code>## Observations: 7,291
+## Variables: 16
+## $ `Vetenskapligt namn`       &lt;chr&gt; &quot;Turdus pilaris&quot;, &quot;Fringilla coeleb...
+## $ `Svenskt namn`             &lt;chr&gt; &quot;björktrast&quot;, &quot;bofink&quot;, &quot;skrattmås&quot;...
+## $ Organismgrupp              &lt;chr&gt; &quot;Fåglar&quot;, &quot;Fåglar&quot;, &quot;Fåglar&quot;, &quot;Fågl...
+## $ Fyndstatus                 &lt;chr&gt; &quot;Present&quot;, &quot;Present&quot;, &quot;Present&quot;, &quot;P...
+## $ Observatör                 &lt;chr&gt; &quot;Rikard Henricsson&quot;, &quot;Kerstin Wilto...
+## $ Lokal                      &lt;chr&gt; &quot;Kälvestavägen 119&quot;, &quot;Reimersholme&quot;...
+## $ Län                        &lt;chr&gt; &quot;Stockholm&quot;, &quot;Stockholm&quot;, &quot;Stockhol...
+## $ `Koordinatnoggrannhet (m)` &lt;chr&gt; &quot;225&quot;, &quot;262&quot;, &quot;1367&quot;, &quot;200&quot;, &quot;319&quot;,...
+## $ X                          &lt;chr&gt; &quot;17,885178829&quot;, &quot;18,0210041&quot;, &quot;18,0...
+## $ Y                          &lt;chr&gt; &quot;59,385253509&quot;, &quot;59,318441642&quot;, &quot;59...
+## $ Startdatum                 &lt;chr&gt; &quot;2018-01-06&quot;, &quot;2018-01-14&quot;, &quot;2018-0...
+## $ Slutdatum                  &lt;chr&gt; &quot;2018-01-06&quot;, &quot;2018-01-14&quot;, &quot;2018-0...
+## $ Datakälla                  &lt;chr&gt; &quot;Artportalen&quot;, &quot;Artportalen&quot;, &quot;Artp...
+## $ `Osäker bestämning`        &lt;chr&gt; &quot;False&quot;, &quot;False&quot;, &quot;False&quot;, &quot;False&quot;,...
+## $ Valideringstatus           &lt;chr&gt; &quot;Unvalidated&quot;, &quot;Unvalidated&quot;, &quot;Unva...
+## $ ObservationId              &lt;chr&gt; &quot;109492512&quot;, &quot;109552370&quot;, &quot;10937691...</code></pre>
+<p>Vi noterar här två saker:</p>
+<ul>
+<li>Några variabelnamn innehåller blanktecken vilket kan vara opraktiskt, detta fixas enkelt med</li>
+</ul>
+<pre class="r"><code>names(artdata) &lt;- gsub(&quot; &quot;, &quot;_&quot;, names(artdata))</code></pre>
+<ul>
+<li>Vi ser även att <code>read_excel</code> klassat samtliga kolumner som <code>character</code>. Konvertera variablerna <code>X</code> och <code>Y</code> till numeriskt format med <code>as.numeric</code> (först måste du byta kommatecken mot punkt, t.ex. med <code>gsub</code>). Konvertera även datumen med <code>as.Date</code>.</li>
+</ul>
+</div>
+<div id="fagelobservationer" class="section level2">
+<h2>Fågelobservationer</h2>
+<p>Filtrera ut organismgruppen Fåglar och lös följande uppgifter:</p>
+<ul>
+<li>Vem är den flitigaste observatören? Ange svaret i löpande text.</li>
+<li>Skapa en tabell över de 10 mest rapporterade fågelarterna under perioden.</li>
+<li>Inför variabeln <code>Veckodag</code> med hjälp av funktionen <code>Weekdays</code>. Gör ett stapeldiagram över det genomsnittliga antalet observationer per veckodag (försök gärna placera staplarna i lämplig ordning).</li>
+<li>Plotta det totala antalet rapporter per dag som punkter sammanbundna med linjer.</li>
+<li>Efter nyår får fågelskådarna bråttom med att fylla på sina årliga krysslistor, där de bockar av observerade arter. Gör en tabell över de 10 observatörer som har flest kryss 2018, d.v.s de som rapporterat flest unika arter.</li>
+<li>Med paketet <code>ggmap</code> kan man enkelt plotta data på kartor. Installera detta och illustrera någon geografisk aspekt av data genom att plotta punkter färglagda efter någon variabel. En grundkarta får du t.ex. med <code>map &lt;- get_map(&quot;Stockholm&quot;)</code>, sedan plottar du med <code>ggmap(map) + geom_point(data = artdata, aes(x=X, y=Y, ...</code>. Filtrera gärna ut en delmängd av materialet innan plot.</li>
+</ul>
+</div>
+</div>
+<div id="slutpriser-pa-booli" class="section level1">
+<h1>Slutpriser på Booli</h1>
+<p>Filen <code>data/booli_sold.csv</code> innehåller data på 500 sålda bostäder i Norra Djurgården, hämtade från <a href="https://www.booli.se/api/">Boolis öppna API</a>.</p>
+<ul>
+<li>Illustrera hur slutpris beror på bostadsyta med lämplig figur.</li>
+<li>Illustrera hur pris per kvadratmeter utvecklats med tiden under perioden med lämplig figur.</li>
+<li>Illustrera valfri aspekt av data med en tabell.</li>
+<li>Illustrera valfri aspekt av data med boxplottar (<code>geom_boxplot</code>).</li>
+<li>Illustrera valfri aspekt av data på en karta.</li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
