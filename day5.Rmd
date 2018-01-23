@@ -1,0 +1,14 @@
+---
+title: 'Dag 5: Tidy data'
+output:
+  html_document:
+    toc: true
+    toc_depth: 4    
+---
+
+## Gör detta innan lektion
+
+Läs [R4DS](http://r4ds.had.co.nz/) kapitel 12.
+
+Lös övningskapitel *Introduction and exploring raw data* och *Tidying data* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18/details).
+
