@@ -209,6 +209,7 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#gor-detta-innan-lektion">Gör detta innan lektion</a></li>
+<li><a href="#att-gora-under-lektion">Att göra under lektion</a></li>
 </ul>
 </div>
 
@@ -216,6 +217,25 @@ $(document).ready(function () {
 <h2>Gör detta innan lektion</h2>
 <p>Läs <a href="http://r4ds.had.co.nz/">R4DS</a> kapitel 12.</p>
 <p>Lös övningskapitel <em>Introduction and exploring raw data</em> och <em>Tidying data</em> på <a href="https://www.datacamp.com/groups/statistisk-databehandling-vt18/details">DataCamp</a>.</p>
+</div>
+<div id="att-gora-under-lektion" class="section level2">
+<h2>Att göra under lektion</h2>
+<p>Öppna ditt <code>Classroom</code>-projekt och hämta ner nya data med “Pull Branch”.</p>
+<ul>
+<li>Filen <code>data/Statistikdatabasen_2018-01-23 14_46_26.csv</code> innehåller antalet personer över 20 år som besökt tandvården de senaste två åren indelat på kön, kommun och år (från <a href="http://www.socialstyrelsen.se/statistik/statistikdatabas/tandhalsa">socialstyrelsens tandvårdsdata</a>). Läs in med</li>
+</ul>
+<pre class="r"><code>tandvård &lt;- read_csv2(&quot;data/Statistikdatabasen_2018-01-23 14_46_26.csv&quot;, skip = 1, n_max = 580)</code></pre>
+<p>(varför <code>skip = 1</code> och <code>n_max = 580</code>?) och använd <code>gather</code> för att överföra data till långt (“tidy”) format.</p>
+<ul>
+<li>Filen <code>data/Statistikdatabasen_2018-01-23 15_04_12.csv)</code> innehåller data över antal självmord och totalt antal döda uppdelat på län, kön och år (från <a href="http://www.socialstyrelsen.se/statistik/statistikdatabas/dodsorsaker">socialstyrelsens statistik över dödsorsaker</a>). Läs in med</li>
+</ul>
+<pre class="r"><code>data &lt;- read_csv2(&quot;data/Statistikdatabasen_2018-01-23 15_04_12.csv&quot;, skip = 1, n_max = 80)</code></pre>
+<p>och plotta andelen självmord av totalt antal döda uppdelat efter kön för hela riket.</p>
+<ul>
+<li><p>Filen <code>data/Statistikdatabasen_2018-01-23 15_39_06.csv</code> innehåller månatlig statistik över utbetalt ekonomiskt bistånd. Undersök först i ett kalkylblad och gör sedan om till “tidy data” innehållande variabeln bistånd per hushåll. Problemet med de dubbla kolumnnamnen kan eventuellt löses genom att klistra ihop dem med <code>paste</code>.</p></li>
+<li><p>Kursen Matematik I innehåller ett stort antal delmoment som resultatrapporteras på olika provkoder, se <a href="https://sisu.it.su.se/pdf_creator/8940/34903">kursplanen</a> för en lista. Filen <code>data/MM2001.csv</code> innehåller en resultatrapport från gamla Ladok för 100 slumpmässigt valda studenter som varit registrerade på kursen. Varje rad representerar en student (kolumnerna “Namn” och “Pnr” har blivit borttagna). Gör ett försök att städa, eventuellt en delmängd av data.</p></li>
+</ul>
+<p>Blir du klar, undersök materialen ytterligare med tabeller och figurer.</p>
 </div>
 
 

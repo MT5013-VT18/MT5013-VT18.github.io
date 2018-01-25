@@ -12,3 +12,25 @@ Läs [R4DS](http://r4ds.had.co.nz/) kapitel 12.
 
 Lös övningskapitel *Introduction and exploring raw data* och *Tidying data* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18/details).
 
+## Att göra under lektion
+Öppna ditt `Classroom`-projekt och hämta ner nya data med "Pull Branch".
+
+* Filen `data/Statistikdatabasen_2018-01-23 14_46_26.csv` innehåller antalet personer över 20 år som besökt tandvården de senaste två åren indelat på kön, kommun och år (från [socialstyrelsens tandvårdsdata](http://www.socialstyrelsen.se/statistik/statistikdatabas/tandhalsa)). Läs in med
+```{r, eval = FALSE}
+tandvård <- read_csv2("data/Statistikdatabasen_2018-01-23 14_46_26.csv", skip = 1, n_max = 580)
+```
+(varför `skip = 1` och  `n_max = 580`?) och använd `gather` för att överföra data till långt ("tidy") format.
+
+* Filen `data/Statistikdatabasen_2018-01-23 15_04_12.csv)` innehåller data över antal självmord och totalt antal döda uppdelat på län, kön och år (från [socialstyrelsens statistik över dödsorsaker](http://www.socialstyrelsen.se/statistik/statistikdatabas/dodsorsaker)). Läs in med
+
+```{r, eval = FALSE}
+data <- read_csv2("data/Statistikdatabasen_2018-01-23 15_04_12.csv", skip = 1, n_max = 80)
+```
+
+och plotta andelen självmord av totalt antal döda uppdelat efter kön för hela riket.
+
+* Filen `data/Statistikdatabasen_2018-01-23 15_39_06.csv` innehåller månatlig statistik över utbetalt ekonomiskt bistånd. Undersök först i ett kalkylblad och gör sedan om till "tidy data" innehållande variabeln bistånd per hushåll. Problemet med de dubbla kolumnnamnen kan eventuellt löses genom att klistra ihop dem med `paste`.
+
+* Kursen Matematik I innehåller ett stort antal delmoment som resultatrapporteras på olika provkoder, se [kursplanen](https://sisu.it.su.se/pdf_creator/8940/34903) för en lista. Filen `data/MM2001.csv` innehåller en resultatrapport från gamla Ladok för 100 slumpmässigt valda studenter som varit registrerade på kursen. Varje rad representerar en student (kolumnerna "Namn" och "Pnr" har blivit borttagna). Gör ett försök att städa, eventuellt en delmängd av data.
+
+Blir du klar, undersök materialen ytterligare med tabeller och figurer.
