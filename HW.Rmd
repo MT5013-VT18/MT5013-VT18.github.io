@@ -13,7 +13,7 @@ Det ingår även att göra en kamratgranskning av en annan students lösning, be
 HW <- c(
     "[HW1: GitHub test-run](HW1.html)",
     "[HW2: Grundläggande tidyverse](HW2.html)",
-    "HW3",
+    "[HW3: Tabellhantering](HW3.html)",
     "HW4",
     "HW5",
     "HW6"
