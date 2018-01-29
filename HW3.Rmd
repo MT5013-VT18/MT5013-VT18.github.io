@@ -14,7 +14,7 @@ Följande uppgifter skall lösas i ett R-Markdown dokument med `output: github_d
 
 Inled ditt dokument genom att ladda paketen `tidyverse`, `readxl`, `knitr`, `ggmap` (vid behov) och `jsonlite`. Paketen skall laddas "tyst" med `suppressPackageStartupMessages`. Avsluta dokumentet med en kodsnutt innehållande `sessionInfo()`.
 
-Data till uppgiften finns på <https://github.com/MT5013-VT18/HW_data> som `StopArea.json`, `Line.json` och `JourneyPattern.json`. Ladda ner dessa och placera i ett uderbibliotek `data` till ditt `Homework`-repo.
+Data till uppgiften finns på <https://github.com/MT5013-VT18/HW_data> som `StopArea.json`, `Line.json` och `JourneyPattern.json`. Ladda ner dessa och placera i ett underbibliotek `data` till ditt `Homework`-repo.
 
 
 # SLs linjer
