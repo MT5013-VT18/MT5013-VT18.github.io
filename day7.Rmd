@@ -8,5 +8,5 @@ output:
 
 ## Gör detta innan lektion
 
-Läs [Exploratory Data Analysis with R](https://bookdown.org/rdpeng/exdata/) kapitel 11-13.
+Läs [Exploratory Data Analysis with R](https://bookdown.org/rdpeng/exdata/) kapitel 11-13 (översiktligt).
 
