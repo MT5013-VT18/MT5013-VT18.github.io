@@ -12,3 +12,53 @@ Läs [R4DS](http://r4ds.had.co.nz/) kapitel 13.
 
 Lös övningskapitel *Mutating joins* och *Filtering joins and set operations* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18/details).
 
+## Att göra under lektion
+
+### Mer fågelskådning
+
+Hur vädertåliga är fågelskådare? Filen `data/smhi-opendata_5_98210_20180126_123122.csv` innehåller nederbördsdata från [SMHI](http://opendata-download-metobs.smhi.se/explore/). Koppla ihop dessa med fågelobservationerna från HW2 för att undersöka ifall observatörerna är mindre aktiva regniga dagar.
+
+### Mer tandvård
+
+Vid förra tillfället arbetade ni med ett material över antalet besök i tandvården
+```{r, eval = FALSE}
+tandvård <- read_csv2("data/Statistikdatabasen_2018-01-23 14_46_26.csv", skip = 1, n_max = 580)
+```
+kombinera detta med filen `data/BE0101A5.csv`, som innehåller populationsmängd för kommunerna, för att bestämma antalet besök per invånare.
+
+
+### Pokemon
+
+Pokemon finns i flera typer, t.ex. eld-, vatten- och gräs-typ, vilket påverkar deras styrkor och svagheter i strid. Några pokemon är av dubbeltyp, och har då två typegenskaper. En lista på pokemon hittar ni på 
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse)
+pokemon <- read_csv("https://raw.githubusercontent.com/veekun/pokedex/master/pokedex/data/csv/pokemon.csv")
+head(pokemon)
+```
+(Mac-användare kan behöva paketet `Curl` för att läsa direkt från en `https`), en lista på olika typer på
+
+```{r, message = FALSE, warning = FALSE}
+types <- read_csv("https://raw.githubusercontent.com/veekun/pokedex/master/pokedex/data/csv/types.csv")
+head(types)
+```
+och slutligen en lista som länkar pokemon till deras typ på
+```{r, message = FALSE, warning = FALSE}
+pokemon_types <- read_csv("https://raw.githubusercontent.com/veekun/pokedex/master/pokedex/data/csv/pokemon_types.csv")
+head(pokemon_types)
+```
+Här kan vi t.ex. se att Pokemon nr 1 (bulbasaur) är av typ 12 (grass) och typ 4 (poison). Koppla ihop tabellerna så att slutprodukten blir som nedan och undersök hur vikt/längd beror på typ.
+```{r, echo = FALSE}
+tabell <- mutate(pokemon_types, slot = paste("slot", slot, sep = "")) %>% 
+    left_join(types, by = c("type_id" = "id")) %>% 
+    select(pokemon_id, slot, identifier) %>% 
+    spread(slot, identifier) %>% 
+    left_join(pokemon, by = c("pokemon_id" = "id")) %>% 
+    select(pokemon_id, identifier, slot1, slot2, height, weight)
+```
+
+```{r}
+head(tabell)
+```
+
+
+

@@ -209,6 +209,11 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#gor-detta-innan-lektion">Gör detta innan lektion</a></li>
+<li><a href="#att-gora-under-lektion">Att göra under lektion</a><ul>
+<li><a href="#mer-fagelskadning">Mer fågelskådning</a></li>
+<li><a href="#mer-tandvard">Mer tandvård</a></li>
+<li><a href="#pokemon">Pokemon</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -216,6 +221,71 @@ $(document).ready(function () {
 <h2>Gör detta innan lektion</h2>
 <p>Läs <a href="http://r4ds.had.co.nz/">R4DS</a> kapitel 13.</p>
 <p>Lös övningskapitel <em>Mutating joins</em> och <em>Filtering joins and set operations</em> på <a href="https://www.datacamp.com/groups/statistisk-databehandling-vt18/details">DataCamp</a>.</p>
+</div>
+<div id="att-gora-under-lektion" class="section level2">
+<h2>Att göra under lektion</h2>
+<div id="mer-fagelskadning" class="section level3">
+<h3>Mer fågelskådning</h3>
+<p>Hur vädertåliga är fågelskådare? Filen <code>data/smhi-opendata_5_98210_20180126_123122.csv</code> innehåller nederbördsdata från <a href="http://opendata-download-metobs.smhi.se/explore/">SMHI</a>. Koppla ihop dessa med fågelobservationerna från HW2 för att undersöka ifall observatörerna är mindre aktiva regniga dagar.</p>
+</div>
+<div id="mer-tandvard" class="section level3">
+<h3>Mer tandvård</h3>
+<p>Vid förra tillfället arbetade ni med ett material över antalet besök i tandvården</p>
+<pre class="r"><code>tandvård &lt;- read_csv2(&quot;data/Statistikdatabasen_2018-01-23 14_46_26.csv&quot;, skip = 1, n_max = 580)</code></pre>
+<p>kombinera detta med filen <code>data/BE0101A5.csv</code>, som innehåller populationsmängd för kommunerna, för att bestämma antalet besök per invånare.</p>
+</div>
+<div id="pokemon" class="section level3">
+<h3>Pokemon</h3>
+<p>Pokemon finns i flera typer, t.ex. eld-, vatten- och gräs-typ, vilket påverkar deras styrkor och svagheter i strid. Några pokemon är av dubbeltyp, och har då två typegenskaper. En lista på pokemon hittar ni på</p>
+<pre class="r"><code>library(tidyverse)
+pokemon &lt;- read_csv(&quot;https://raw.githubusercontent.com/veekun/pokedex/master/pokedex/data/csv/pokemon.csv&quot;)
+head(pokemon)</code></pre>
+<pre><code>## # A tibble: 6 x 8
+##      id identifier species_id height weight base_experience order
+##   &lt;int&gt;      &lt;chr&gt;      &lt;int&gt;  &lt;int&gt;  &lt;int&gt;           &lt;int&gt; &lt;int&gt;
+## 1     1  bulbasaur          1      7     69              64     1
+## 2     2    ivysaur          2     10    130             142     2
+## 3     3   venusaur          3     20   1000             236     3
+## 4     4 charmander          4      6     85              62     5
+## 5     5 charmeleon          5     11    190             142     6
+## 6     6  charizard          6     17    905             240     7
+## # ... with 1 more variables: is_default &lt;int&gt;</code></pre>
+<p>(Mac-användare kan behöva paketet <code>Curl</code> för att läsa direkt från en <code>https</code>), en lista på olika typer på</p>
+<pre class="r"><code>types &lt;- read_csv(&quot;https://raw.githubusercontent.com/veekun/pokedex/master/pokedex/data/csv/types.csv&quot;)
+head(types)</code></pre>
+<pre><code>## # A tibble: 6 x 4
+##      id identifier generation_id damage_class_id
+##   &lt;int&gt;      &lt;chr&gt;         &lt;int&gt;           &lt;int&gt;
+## 1     1     normal             1               2
+## 2     2   fighting             1               2
+## 3     3     flying             1               2
+## 4     4     poison             1               2
+## 5     5     ground             1               2
+## 6     6       rock             1               2</code></pre>
+<p>och slutligen en lista som länkar pokemon till deras typ på</p>
+<pre class="r"><code>pokemon_types &lt;- read_csv(&quot;https://raw.githubusercontent.com/veekun/pokedex/master/pokedex/data/csv/pokemon_types.csv&quot;)
+head(pokemon_types)</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##   pokemon_id type_id  slot
+##        &lt;int&gt;   &lt;int&gt; &lt;int&gt;
+## 1          1      12     1
+## 2          1       4     2
+## 3          2      12     1
+## 4          2       4     2
+## 5          3      12     1
+## 6          3       4     2</code></pre>
+<p>Här kan vi t.ex. se att Pokemon nr 1 (bulbasaur) är av typ 12 (grass) och typ 4 (poison). Koppla ihop tabellerna så att slutprodukten blir som nedan och undersök hur vikt/längd beror på typ.</p>
+<pre class="r"><code>head(tabell)</code></pre>
+<pre><code>## # A tibble: 6 x 6
+##   pokemon_id identifier slot1  slot2 height weight
+##        &lt;int&gt;      &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;
+## 1          1  bulbasaur grass poison      7     69
+## 2          2    ivysaur grass poison     10    130
+## 3          3   venusaur grass poison     20   1000
+## 4          4 charmander  fire   &lt;NA&gt;      6     85
+## 5          5 charmeleon  fire   &lt;NA&gt;     11    190
+## 6          6  charizard  fire flying     17    905</code></pre>
+</div>
 </div>
 
 
