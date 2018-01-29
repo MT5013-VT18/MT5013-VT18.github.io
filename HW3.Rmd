@@ -1,0 +1,43 @@
+---
+title: "HW3: Tabellhantering"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+library(readxl)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Följande uppgifter skall lösas i ett R-Markdown dokument med `output: github_document`. Alla kodsnuttar skall vara synliga (`echo = TRUE`). För lättläst kod, följ t.ex. [Google's R Style guide](https://google.github.io/styleguide/Rguide.xml) eller [Hadley Wickham's style guide](http://adv-r.had.co.nz/Style.html) så långt som möjligt (snåla inte med mellanslag i koden!). Både den genererade `.md` filen och källfilen (`.Rmd`) skall laddas upp på GitHub under biblioteket `HW_efternamn_initial/HW3`. Det skall finnas en länk till `.md` filen från `HW_efternamn_initial/README.md` som i tidigare uppgifter.
+
+Inled ditt dokument genom att ladda paketen `tidyverse`, `readxl`, `knitr`, `ggmap` (vid behov) och `jsonlite`. Paketen skall laddas "tyst" med `suppressPackageStartupMessages`. Avsluta dokumentet med en kodsnutt innehållande `sessionInfo()`.
+
+Data till uppgiften finns på <https://github.com/MT5013-VT18/HW_data> som `StopArea.json`, `Line.json` och `JourneyPattern.json`. Ladda ner dessa och placera i ett uderbibliotek `data` till ditt `Homework`-repo.
+
+
+# SLs linjer
+
+I filerna `StopArea.json`, `Line.json` och `JourneyPattern.json` finns stockholmstrafikens hållplatser, linjer och vilka hållplatser som passeras av en given linje (hämtade från [TrafikLab](https://www.trafiklab.se/api/sl-hallplatser-och-linjer-2)). Tyvärr finns det ingen information om i vilken ordning hållplatserna passeras. Filerna är i s.k. JSON-format som är mycket vanligt när man hämtar data från nätet, för att läsa dem (kräver paketet `jsonlite`) kör
+
+```{r, eval = FALSE}
+Line <- fromJSON("data/Line.json")$ResponseData$Result
+```
+och motsvarande för övriga. Notera att man skiljer mellan `StopPoint` (hållplatsstolpe) och `StopArea` (station/hållplatsområde). För busshållplatser består i allmänhet en `StopArea` av två `StopPoint`, en på varje sida om vägen. Du väljer själv hur du hanterar detta, alternativt ignorerar `StopArea`-kolumnen.
+
+* För varje zon (A, B och C), bestäm medelantalet busslinjer som passerar varje busshållplats.
+
+* Välj en linje och plotta dess stationer/hållplatser som punkter på en karta, bakgrundskarta med `ggmap` är frivilligt.  Stationsnamnet skall placeras vid varje station med t.ex. `geom_text` och koden skall vara skriven så att det är enkelt att byta linje.
+
+# Långt och brett
+
+Gå till [SCBs statistikdatabas](http://www.statistikdatabasen.scb.se/) och 
+    
+* välj ut/skapa en tabell som har variabelvärden som kolumnnamn (wide-format, se [läroboken](http://r4ds.had.co.nz/tidy-data.html) 12.3.1). Städa den med `gather` och illustrera/beräkna något som skulle varit knepigare i det ursprungliga formatet.
+* välj ut/skapa en tabell som har observationer uppdelade på flera rader (se [läroboken](http://r4ds.had.co.nz/tidy-data.html) 12.3.2). Städa den med `spread` och illustrera/beräkna något som skulle varit knepigare i det ursprungliga formatet.
+
+
+
+
+
