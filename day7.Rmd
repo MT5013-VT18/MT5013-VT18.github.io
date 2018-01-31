@@ -10,3 +10,6 @@ output:
 
 Läs [Exploratory Data Analysis with R](https://bookdown.org/rdpeng/exdata/) kapitel 11-13 (översiktligt).
 
+## Under lektion
+
+I filen `data/betyg.csv` finns betygsmedelvärden från årskurs 6 för sveriges kommuner i ett antal ämnen. Undersök materialet med multivariata tekniker, t.ex. klusteranalys och principalkomponenter.
