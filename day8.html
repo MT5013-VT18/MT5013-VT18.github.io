@@ -219,6 +219,76 @@ $(document).ready(function () {
 </div>
 <div id="under-lektion" class="section level2">
 <h2>Under lektion</h2>
+<p>Med paketen <code>DBI</code> och <code>RSQLite</code> kan man skriva SQL-kod direkt i ett kod-“chunk” i sitt R Markdown dokument, se vidare på <a href="http://rmarkdown.rstudio.com/authoring_knitr_engines.html#sql" class="uri">http://rmarkdown.rstudio.com/authoring_knitr_engines.html#sql</a>. Från kommandoraden får man använda funktionen <code>dbGetQuery</code> i <a href="https://cran.r-project.org/web/packages/RSQLite/vignettes/RSQLite.html">RSQLite</a>. Vi kommer använda en databas över däggdjur i <code>data/portal_mammals.sqlite</code>, vi kan ansluta till denna och lista dess tabeller genom</p>
+<pre class="r"><code>library(RSQLite)
+mammals &lt;- dbConnect(SQLite(), &quot;data/portal_mammals.sqlite&quot;)
+dbListTables(mammals)</code></pre>
+<pre><code>## [1] &quot;plots&quot;   &quot;species&quot; &quot;surveys&quot;</code></pre>
+<p>Vi använder sedan</p>
+<pre class="r"><code>dbGetQuery(mammals, &#39;SELECT * FROM plots LIMIT 5&#39;)</code></pre>
+<pre><code>##   plot_id                plot_type
+## 1       1        Spectab exclosure
+## 2       2                  Control
+## 3       3 Long-term Krat Exclosure
+## 4       4                  Control
+## 5       5         Rodent Exclosure</code></pre>
+<p>för att skicka SQL-frågor från kommandoraden eller som ett SQL-chunk i R Markdown</p>
+<pre class="sql"><code>SELECT *
+FROM species
+LIMIT 5</code></pre>
+<div class="knitsql-table">
+<table>
+<caption>5 records</caption>
+<thead>
+<tr class="header">
+<th align="left">species_id</th>
+<th align="left">genus</th>
+<th align="left">species</th>
+<th align="left">taxa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AB</td>
+<td align="left">Amphispiza</td>
+<td align="left">bilineata</td>
+<td align="left">Bird</td>
+</tr>
+<tr class="even">
+<td align="left">AH</td>
+<td align="left">Ammospermophilus</td>
+<td align="left">harrisi</td>
+<td align="left">Rodent</td>
+</tr>
+<tr class="odd">
+<td align="left">AS</td>
+<td align="left">Ammodramus</td>
+<td align="left">savannarum</td>
+<td align="left">Bird</td>
+</tr>
+<tr class="even">
+<td align="left">BA</td>
+<td align="left">Baiomys</td>
+<td align="left">taylori</td>
+<td align="left">Rodent</td>
+</tr>
+<tr class="odd">
+<td align="left">CB</td>
+<td align="left">Campylorhynchus</td>
+<td align="left">brunneicapillus</td>
+<td align="left">Bird</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Mer information om materialet och vidare övningar finns på <a href="http://www.datacarpentry.org/sql-ecology-lesson/00-sql-introduction/">Data Carpentry</a>, du väljer själv om du vill arbeta i RStudio eller använda den Firefox-plugin som rekommenderas där.</p>
+<p><em>Tips:</em> Paketet <code>dbplyr</code> har en funktion för att <a href="https://cran.r-project.org/web/packages/dbplyr/vignettes/sql-translation.html">översätta <code>dplyr</code>-kod till <code>SQL</code></a>:</p>
+<pre class="r"><code>library(dbplyr)
+translate_sql(mtcars %&gt;% 
+                 filter(cyl == 8) %&gt;% 
+                 mutate(lpm = 235 / mpg) %&gt;% 
+                 select(lpm, hp))</code></pre>
+<pre><code>## &lt;SQL&gt; SELECT(MUTATE(FILTER(&quot;mtcars&quot;, &quot;cyl&quot; = 8.0), 235.0 / &quot;mpg&quot; AS &quot;lpm&quot;), &quot;lpm&quot;, &quot;hp&quot;)</code></pre>
 </div>
 
 

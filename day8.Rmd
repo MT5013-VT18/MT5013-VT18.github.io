@@ -11,3 +11,33 @@ output:
 Gå igenom *Intro to SQL for Data Science* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18).
 
 ## Under lektion
+
+Med paketen `DBI` och `RSQLite` kan man skriva SQL-kod direkt i ett kod-"chunk" i sitt R Markdown dokument, se vidare på <http://rmarkdown.rstudio.com/authoring_knitr_engines.html#sql>. Från kommandoraden får man använda funktionen `dbGetQuery` i [RSQLite](https://cran.r-project.org/web/packages/RSQLite/vignettes/RSQLite.html). Vi kommer använda en databas över däggdjur i `data/portal_mammals.sqlite`, vi kan ansluta till denna och lista dess tabeller genom
+```{r, warning = FALSE}
+library(RSQLite)
+mammals <- dbConnect(SQLite(), "data/portal_mammals.sqlite")
+dbListTables(mammals)
+```
+Vi använder sedan 
+```{r}
+dbGetQuery(mammals, 'SELECT * FROM plots LIMIT 5')
+```
+för att skicka SQL-frågor från kommandoraden eller som ett SQL-chunk i R Markdown
+```{sql connection=mammals}
+SELECT *
+FROM species
+LIMIT 5
+```
+
+Mer information om materialet och vidare övningar finns på [Data Carpentry](http://www.datacarpentry.org/sql-ecology-lesson/00-sql-introduction/), du väljer själv om du vill arbeta i RStudio eller använda den Firefox-plugin som rekommenderas där.
+
+*Tips:* Paketet `dbplyr` har en funktion för att [översätta `dplyr`-kod till `SQL`](https://cran.r-project.org/web/packages/dbplyr/vignettes/sql-translation.html):
+```{r, warning=FALSE}
+library(dbplyr)
+translate_sql(mtcars %>% 
+                 filter(cyl == 8) %>% 
+                 mutate(lpm = 235 / mpg) %>% 
+                 select(lpm, hp))
+```
+
+
