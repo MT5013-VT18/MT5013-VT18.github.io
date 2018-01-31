@@ -1,0 +1,13 @@
+---
+title: 'Dag 10: Hämta data från nätet'
+output:
+  html_document:
+    toc: true
+    toc_depth: 4    
+---
+
+## Gör detta innan lektion
+
+Lös kapitlen *Downloading Files and Using API Clients*, *Using httr to interact with APIs directly* och *Handling JSON and XML* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18).
+
+## Under lektion

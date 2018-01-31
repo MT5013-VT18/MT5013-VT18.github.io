@@ -1,0 +1,13 @@
+---
+title: 'Dag 8: Grundläggande SQL'
+output:
+  html_document:
+    toc: true
+    toc_depth: 4    
+---
+
+## Gör detta innan lektion
+
+Gå igenom *Intro to SQL for Data Science* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18).
+
+## Under lektion

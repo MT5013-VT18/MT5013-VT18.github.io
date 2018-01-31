@@ -1,0 +1,13 @@
+---
+title: 'Dag 9: Hantera text'
+output:
+  html_document:
+    toc: true
+    toc_depth: 4    
+---
+
+## Gör detta innan lektion
+
+Lös kapitlen *String basics*, *Introduction to stringr* och *Pattern matching with regular expressions* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18).
+
+## Under lektion

@@ -1,0 +1,13 @@
+---
+title: 'Dag 13: Funktionsprogrammering med purrr'
+output:
+  html_document:
+    toc: true
+    toc_depth: 4    
+---
+
+## Gör detta innan lektion
+
+Lös kapitlen *Functional programming* och *Advanced inputs and outputs* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18).
+
+## Under lektion

@@ -1,0 +1,13 @@
+---
+title: 'Dag 12: Funktionell programmering'
+output:
+  html_document:
+    toc: true
+    toc_depth: 4    
+---
+
+## Gör detta innan lektion
+
+Lös kapitlen *A quick refresher* och *When and how you should write a function* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18).
+
+## Under lektion
