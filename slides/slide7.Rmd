@@ -4,15 +4,19 @@ author: "Martin Sköld"
 output:
   ioslides_presentation:
     logo: SU_logo_CMYK.png
-    incremental: TRUE
+    incremental: FALSE
     css: slides.css
-
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 suppressPackageStartupMessages(library(tidyverse))
-scale <- function(x)((x-mean(x))/sd(x))
+suppressPackageStartupMessages(library(aplpack))
+suppressPackageStartupMessages(library(GGally))
+suppressPackageStartupMessages(library(corrplot))
+
+# base scale works poorly with dplyr
+my_scale <- function(x)((x-mean(x))/sd(x))
 ```
 
 # Multivariata och högdimensionella data
@@ -32,12 +36,12 @@ mtcars
 ## Glyfer `stars(mtcars)`
 
 ```{r, echo = FALSE, fig.width=8}
-stars(mtcars)
+stars(mtcars, ncol = 8)
 ```
 
 ## Glyfer `aplpack::faces(mtcars)`
 ```{r, echo = FALSE, messages = FALSE, fig.width=8}
-aplpack::faces(mtcars)
+faces(mtcars, nrow.plot = 4, ncol.plot = 8)
 ```
 
 
@@ -56,11 +60,11 @@ mtcars %>%
 ```{r, echo = FALSE}
 mtcars %>% 
     rownames_to_column("model") %>% 
-    mutate(cyl = as.factor(cyl)) %>% 
-    mutate_if(is.numeric, scale) %>% 
+    mutate_if(is.numeric, my_scale) %>% 
     gather(key = key, value = value, mpg:carb) %>% 
     mutate(x = as.numeric(as.factor(key))) %>% 
-    ggplot(aes(x = x, y = value, color = model)) + geom_point() +geom_line(aes(group = model)) 
+    ggplot(aes(x = x, y = value, color = model)) + geom_point() +geom_line(aes(group = model)) +
+    xlab("") + scale_x_continuous(breaks = 1:ncol(mtcars), labels = names(mtcars))
 ```
 
 ## Linjer
@@ -72,20 +76,21 @@ mtcars %>%
     mutate_if(is.numeric, scale) %>% 
     gather(key = key, value = value, mpg:carb, -cyl) %>% 
     mutate(x = as.numeric(as.factor(key))) %>% 
-    ggplot(aes(x = x, y = value, color = cyl)) + geom_point() +geom_line(aes(group = model)) 
+    ggplot(aes(x = x, y = value, color = cyl)) + geom_point() +geom_line(aes(group = model)) +
+    scale_x_continuous(breaks = 1:ncol(mtcars[,-2]), labels = names(mtcars[,-2])) + xlab("")
 ```
 
 
 ## Samspel `GGally::scatmat(trees)`
 
 ```{r, echo = FALSE}
-GGally::scatmat(trees)
+scatmat(trees)
 ```
 
 ## Samspel `GGally::scatmat(mtcars)`
 
 ```{r, echo = FALSE}
-GGally::scatmat(mtcars)
+scatmat(mtcars)
 ```
 
 ## Samspel `GGally::scatmat(randu)`
@@ -94,10 +99,23 @@ GGally::scatmat(mtcars)
 GGally::scatmat(randu)
 ```
 
+## Samspel `rgl::plot3d(randu)`
+
+```{r, out.width = "400px", echo = FALSE}
+knitr::include_graphics("randu3d_1.png")
+```
+
+## Samspel `rgl::plot3d(randu)`
+
+```{r, out.width = "400px", echo = FALSE}
+knitr::include_graphics("randu3d_2.png")
+```
+
+
 
 ## Samspel `corrplot::corrplot`
 ```{r, echo = FALSE}
-corrplot::corrplot(cor(mtcars))
+corrplot(cor(mtcars))
 ```
 
 
@@ -126,7 +144,9 @@ för $q<p$.
 
 ## Data `trees` (normaliserade)
 ```{r, echo = FALSE}
-trees_c <- scale(trees) %>% as.data.frame() %>% select(Girth, Volume)
+trees_c <- scale(trees) %>% 
+    as.data.frame() %>% 
+    select(Girth, Volume)
 with(trees_c, plot(Girth, Volume, xlim = c(-4, 4), ylim = c(-3,3)))
 ```
 
@@ -156,14 +176,14 @@ points(trees_c, col = "red")
 
 ## `mtcars` utan `cyl`
 
-```{r}
-plot(svd(mtcars[, -2])$u[,1], svd(mtcars[, -2])$u[,2])
+```{r, echo = FALSE}
+plot(svd(mtcars[, -2])$u[,1:2])
 ```
 
 ## `mtcars` utan `cyl`
 
-```{r}
-plot(svd(mtcars[, -2])$u[,1], svd(mtcars[, -2])$u[,2], col = as.factor(mtcars$cyl))
+```{r, echo = FALSE}
+plot(svd(mtcars[, -2])$u[,1:2], col = as.factor(mtcars$cyl))
 ```
 
 
@@ -196,11 +216,13 @@ scores <- select(Decathlon, starts_with("P"), -Polevault) %>%
     mutate_all(scale)
 plot(svd(scores)$u[,1:2])
 ```
+
 ## `biplot`
 
 ```{r, echo = FALSE}
 biplot(prcomp(scores))
 ```
+
 ## `biplot`
 
 ```{r, echo = FALSE}
@@ -233,32 +255,44 @@ Vi vill hitta kluster av observationer/variabler som liknar varandra
 ## Visualisera med dendrogram
 
 ```{r, echo = FALSE}
-plot(hclust(dist(t(scores))))
+scores %>% 
+    t() %>% 
+    dist() %>% 
+    hclust() %>% 
+    plot()
+
 ```
 
 ## Visualisera med dendrogram
 
 ```{r, echo = FALSE}
-plot(hclust(dist(mtcars[, -2])))
+mtcars[, -2] %>% 
+    dist() %>% 
+    hclust() %>% 
+    plot()
 ```
 
 ## Visualisera med dendrogram
 
 ```{r, echo = FALSE}
-plot(hclust(dist(mtcars[, -2])), labels = mtcars$cyl)
+mtcars[, -2] %>% 
+    dist() %>% 
+    hclust() %>% 
+    plot(labels = mtcars$cyl)
 ```
 
 ## Heatmap sorterad efter klustring
 
 ```{r, echo = FALSE}
-cluster <- cutree(hclust(dist(mtcars[, -2])), k = 3)
+cluster_obs <- cutree(hclust(dist(mtcars[, -2])), k = 3)
 mtcars %>% 
     rownames_to_column("model") %>% 
     select(-cyl) %>% 
-    mutate_if(is.numeric, scale) %>% 
-    mutate(model = reorder(model, cluster), cluster = cluster) %>% 
+    mutate_if(is.numeric, my_scale) %>% 
+    mutate(model = reorder(model, cluster_obs), cluster = cluster_obs) %>% 
     gather(key = key, value = value, mpg:cluster) %>% 
     ggplot(aes(x = key, y = model)) + geom_tile(aes(fill = value)) + scale_fill_gradient2() + xlab("")
 ```
+
 
 
