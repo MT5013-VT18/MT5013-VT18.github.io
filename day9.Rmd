@@ -8,6 +8,9 @@ output:
 
 ## Gör detta innan lektion
 
+Läs [R4DS](http://r4ds.had.co.nz/) kapitel 14.
+
 Lös kapitlen *String basics*, *Introduction to stringr* och *Pattern matching with regular expressions* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18).
+
 
 ## Under lektion
