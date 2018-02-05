@@ -209,16 +209,95 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#gor-detta-innan-lektion">Gör detta innan lektion</a></li>
-<li><a href="#under-lektion">Under lektion</a></li>
+<li><a href="#under-lektion">Under lektion</a><ul>
+<li><a href="#motioner">Motioner</a></li>
+<li><a href="#csv-lasare">csv-läsare</a></li>
+<li><a href="#html-tabeller">HTML-tabeller</a></li>
+</ul></li>
+<li><a href="#hemsoborna">Hemsöborna</a></li>
 </ul>
 </div>
 
 <div id="gor-detta-innan-lektion" class="section level2">
 <h2>Gör detta innan lektion</h2>
+<p>Läs <a href="http://r4ds.had.co.nz/">R4DS</a> kapitel 14.</p>
 <p>Lös kapitlen <em>String basics</em>, <em>Introduction to stringr</em> och <em>Pattern matching with regular expressions</em> på <a href="https://www.datacamp.com/groups/statistisk-databehandling-vt18">DataCamp</a>.</p>
 </div>
 <div id="under-lektion" class="section level2">
 <h2>Under lektion</h2>
+<div id="motioner" class="section level3">
+<h3>Motioner</h3>
+<p>Data från denna uppgift är hämtad från <a href="https://data.riksdagen.se/">Riksdagens öppna data</a> och innehåller grundläggande data om motioner från den nuvarande mandatperioden, läs in med</p>
+<pre class="r"><code>motioner &lt;- read_csv(&quot;data/mot-2014-2017.csv&quot;, 
+                     col_names = c(&quot;hangar_id&quot;, &quot;dok_id&quot;, &quot;rm&quot;, &quot;beteckning&quot;, 
+                                   &quot;typ&quot;, &quot;subtyp&quot;, &quot;doktyp&quot;, &quot;dokumentnamn&quot;,  &quot;organ&quot;, 
+                                   &quot;mottagare&quot;, &quot;nummer&quot;, &quot;datum&quot;, &quot;systemdatum&quot;, 
+                                   &quot;titel&quot;, &quot;subtitel&quot;, &quot;status&quot;))</code></pre>
+<p>Det finns två källor till information om partitillhörigheten, genom variabeln <code>dokumentnamn</code> och genom <code>subtitel</code>. Använd t.ex. <code>str_extract</code> tillsammans med regex för att ta fram parti från båda källor. En komplikation är att motionen kan vara ställd från flera personer med eventuellt olika partibeteckning, du väljer själv om/hur du hanterar detta. Plotta antalet motioner per månad färglagt efter parti (funktionen <code>floor_date</code> i paketet <code>lubridate</code> är ett smidigt sätt att trunkera datumvariabler).</p>
+</div>
+<div id="csv-lasare" class="section level3">
+<h3>csv-läsare</h3>
+<p>Kombinera <code>readLines</code> och <code>str_split</code> till en enkel <code>.csv</code>-filläsare som genererar en sträng-matris med filens innehåll.</p>
+</div>
+<div id="html-tabeller" class="section level3">
+<h3>HTML-tabeller</h3>
+<p>textsträngen <code>tabell</code> nedan innehåller en enkel tabell i HTML-kod,</p>
+<pre class="r"><code>tabell &lt;- &quot;&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Förnamn&lt;/th&gt;
+    &lt;th&gt;Efternamn&lt;/th&gt; 
+    &lt;th&gt;Ålder&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Kalle&lt;/td&gt;
+    &lt;td&gt;Karlsson&lt;/td&gt; 
+    &lt;td&gt;25&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Lisa&lt;/td&gt;
+    &lt;td&gt;Larsson&lt;/td&gt; 
+    &lt;td&gt;17&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;&quot;</code></pre>
+<p>som i webbläsaren blir</p>
+<table>
+<thead>
+<tr class="header">
+<th>Förnamn</th>
+<th>Efternamn</th>
+<th>Ålder</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Kalle</td>
+<td>Karlsson</td>
+<td>25</td>
+</tr>
+<tr class="even">
+<td>Lisa</td>
+<td>Larsson</td>
+<td>17</td>
+</tr>
+</tbody>
+</table>
+<p>Använd regex för att extrahera vektorn</p>
+<pre><code>## [1] &quot;Förnamn&quot;   &quot;Efternamn&quot; &quot;Ålder&quot;     &quot;Kalle&quot;     &quot;Karlsson&quot;  &quot;25&quot;       
+## [7] &quot;Lisa&quot;      &quot;Larsson&quot;   &quot;17&quot;</code></pre>
+<p>ur <code>tabell</code>.</p>
+</div>
+</div>
+<div id="hemsoborna" class="section level2">
+<h2>Hemsöborna</h2>
+<p>Strindbergs Hemsöborna kan laddas ner från <a href="https://www.gutenberg.org/">Projekt Gutenberg</a> med</p>
+<pre class="r"><code>text &lt;- readLines(&quot;http://www.gutenberg.org/cache/epub/30078/pg30078.txt&quot;) %&gt;% .[93:5129]</code></pre>
+<p>Gör om texten till en <code>data.frame</code> med variabeln <code>ord</code> som innehåller textens alla ord i gemener med skiljetecken bortplockade. Lägg till variablerna <code>nr = 1:n()</code> och <code>kapitel = cumsum(ord == &quot;kapitel&quot;)</code>. Vid textanalys brukar man ta bort s.k. <em>stoppord</em> som binder ihop texten men är ganska betydelsefattiga i sig själv. En lista på svenska sådana hittade jag på</p>
+<pre class="r"><code>stoppord &lt;- read_delim(&quot;http://snowball.tartarus.org/algorithms/swedish/stop.txt&quot;, 
+                       delim  = &quot;|&quot;, skip = 9, col_names = c(&quot;ord&quot;, &quot;word&quot;), 
+                       locale = locale(encoding = &quot;latin1&quot;))</code></pre>
+<p>Ta bort stopporden från Hemsöborna med <code>anti_join</code>. Att kvantifiera känslostämningar i texter är populärt, specialkurser finns på <a href="https://www.datacamp.com/courses/q:sentiment">DataCamp</a> för den som vill lära sig mer. För att göra så behövs ett sentimentlexikon som värderar ord, ett svenskt sådant finns på <a href="https://spraakbanken.gu.se/">Språkdatabanken</a> och kan laddas ner med</p>
+<pre class="r"><code>sentiment &lt;- read_csv(&quot;https://svn.spraakdata.gu.se/sb-arkiv/pub/lmf/sentimentlex/sentimentlex.csv&quot;)</code></pre>
+<p>Koppla ihop med Hemsöborna genom <code>inner_join</code>. Känslostämning hos de återstående orden kan kanske kvantifieras som <code>strength * confidence</code> i sentimentlexikonet, avsluta genom att visualisera hur denna förändras under romanens gång (som funktion av <code>kapitel</code> eller <code>nr</code>).</p>
 </div>
 
 
