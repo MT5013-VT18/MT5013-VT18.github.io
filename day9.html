@@ -292,9 +292,8 @@ $(document).ready(function () {
 <p>Strindbergs Hemsöborna kan laddas ner från <a href="https://www.gutenberg.org/">Projekt Gutenberg</a> med</p>
 <pre class="r"><code>text &lt;- readLines(&quot;http://www.gutenberg.org/cache/epub/30078/pg30078.txt&quot;) %&gt;% .[93:5129]</code></pre>
 <p>Gör om texten till en <code>data.frame</code> med variabeln <code>ord</code> som innehåller textens alla ord i gemener med skiljetecken bortplockade. Lägg till variablerna <code>nr = 1:n()</code> och <code>kapitel = cumsum(ord == &quot;kapitel&quot;)</code>. Vid textanalys brukar man ta bort s.k. <em>stoppord</em> som binder ihop texten men är ganska betydelsefattiga i sig själv. En lista på svenska sådana hittade jag på</p>
-<pre class="r"><code>stoppord &lt;- read_delim(&quot;http://snowball.tartarus.org/algorithms/swedish/stop.txt&quot;, 
-                       delim  = &quot;|&quot;, skip = 9, col_names = c(&quot;ord&quot;, &quot;word&quot;), 
-                       locale = locale(encoding = &quot;latin1&quot;))</code></pre>
+<pre class="r"><code>stoppord &lt;- read_table(&quot;https://raw.githubusercontent.com/stopwords-iso/stopwords-sv/master/stopwords-sv.txt&quot;,
+                       col_names = &quot;ord&quot;)</code></pre>
 <p>Ta bort stopporden från Hemsöborna med <code>anti_join</code>. Att kvantifiera känslostämningar i texter är populärt, specialkurser finns på <a href="https://www.datacamp.com/courses/q:sentiment">DataCamp</a> för den som vill lära sig mer. För att göra så behövs ett sentimentlexikon som värderar ord, ett svenskt sådant finns på <a href="https://spraakbanken.gu.se/">Språkdatabanken</a> och kan laddas ner med</p>
 <pre class="r"><code>sentiment &lt;- read_csv(&quot;https://svn.spraakdata.gu.se/sb-arkiv/pub/lmf/sentimentlex/sentimentlex.csv&quot;)</code></pre>
 <p>Koppla ihop med Hemsöborna genom <code>inner_join</code>. Känslostämning hos de återstående orden kan kanske kvantifieras som <code>strength * confidence</code> i sentimentlexikonet, avsluta genom att visualisera hur denna förändras under romanens gång (som funktion av <code>kapitel</code> eller <code>nr</code>).</p>

@@ -89,9 +89,8 @@ text <- readLines("http://www.gutenberg.org/cache/epub/30078/pg30078.txt") %>% .
 
 Gör om texten till en `data.frame` med variabeln `ord` som innehåller textens alla ord i gemener med skiljetecken bortplockade. Lägg till variablerna `nr = 1:n()` och `kapitel = cumsum(ord == "kapitel")`. Vid textanalys brukar man ta bort s.k. *stoppord* som binder ihop texten men är ganska betydelsefattiga i sig själv. En lista på svenska sådana hittade jag på
 ```{r}
-stoppord <- read_delim("http://snowball.tartarus.org/algorithms/swedish/stop.txt", 
-                       delim  = "|", skip = 9, col_names = c("ord", "word"), 
-                       locale = locale(encoding = "latin1"))
+stoppord <- read_table("https://raw.githubusercontent.com/stopwords-iso/stopwords-sv/master/stopwords-sv.txt",
+                       col_names = "ord")
 ```
 
 Ta bort stopporden från Hemsöborna med `anti_join`. Att kvantifiera känslostämningar i texter är populärt, specialkurser finns på [DataCamp](https://www.datacamp.com/courses/q:sentiment) för den som vill lära sig mer. För att göra så behövs ett sentimentlexikon som värderar ord, ett svenskt sådant finns på [Språkdatabanken](https://spraakbanken.gu.se/) och kan laddas ner med
