@@ -1,0 +1,67 @@
+---
+title: "HW4: Austen vs Rowling"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+Paketen [`janeaustenr`](https://cran.r-project.org/web/packages/janeaustenr/index.html) och [`harrypotter`](https://github.com/bradleyboehmke/harrypotter) (det senare installeras från GitHub) innehåller Jane Austens verk och J.K. Rowlings Harry Potter böcker. Följande kod städar upp och kombinerar böckerna i en gemensam `data.frame` kallad `tidy_books`.
+
+
+
+```{r}
+library(tidyverse)
+library(harrypotter)
+library(janeaustenr)
+library(purrr)
+library(stringr)
+
+book_list <- list(
+    list(text = sensesensibility, title = "Sense and Sensibility", author = "Austen"),
+    list(text = prideprejudice, title = "Pride and Prejudice", author = "Austen"),
+    list(text = mansfieldpark, title = "Mansfield Park", author = "Austen"),
+    list(text = emma, title = "Emma", author = "Austen"),    
+    list(text = northangerabbey, title = "Northanger Abbey", author = "Austen"), 
+    list(text = persuasion, title = "Persuasion", author = "Austen"),
+    list(text = philosophers_stone, title = "Philosophers Stone", author = "Rowling"),
+    list(text = chamber_of_secrets, title = "Chamber of Secrets", author = "Rowling"),
+    list(text = prisoner_of_azkaban, title = "Prisoner of Azkaban", author = "Rowling"),
+    list(text = goblet_of_fire, title = "Goblet of Fire", author = "Rowling"),
+    list(text = order_of_the_phoenix, title = "Order of the Phoenix", author = "Rowling"),
+    list(text = half_blood_prince, title = "Half-Blood Prince", author = "Rowling"), 
+    list(text = deathly_hallows, title = "Deathly Hallows", author = "Rowling")
+)
+
+tidy_book <- function(book){
+    # Attempts to convert a character vector to a vector of lower case words
+    words <- tolower(book$text) %>% 
+        str_extract_all(boundary("word")) %>% 
+        unlist()
+    data.frame(words = words, title = book$title, author = book$author, 
+               stringsAsFactors = FALSE)
+}
+
+# Mer om map-funktionerna i slutet av kursen!
+tidy_books <- map(book_list, tidy_book) %>% 
+    map_df(bind_rows)
+```
+
+Kontrollera ifall några ord innehåller tecken som inte är gemena bokstäver (a-z), ta i så fall bort dessa. Ifall vi vill avgöra om Austen eller Rowlings skrivet en given bok, kan vi helt enkelt undersöka hur ofta "harry" förekommer. Gör en tabell över antalet förekomster av "harry" i böckerna. 
+
+För att avgöra om författarna skiljer sig i stil kommer vi istället använda frekvensen av ett antal stoppord (ord var huvudsakliga syfte är att binda ihop texten). En stoppordlista hittar vi med
+```{r}
+stop_words <- read_table("https://raw.githubusercontent.com/stopwords-iso/stopwords-en/master/stopwords-en.txt",
+                       col_names = "words")
+```
+Rensa även denna från apostrofer och dylikt innan den kopplas ihop med böckerna genom en `inner_join`. Välj nu ut de 20 mest frekventa stopporden (i de samlade verken) och skapa med hjälp av `spread` en `data.frame` med kolumnerna `title`, `author` samt en kolumn för vart och ett av stopporden innehållande deras relativa frekvenser i respektive verk (d.v.s. en `data.frame` med 13 rader och 22 kolumner).
+
+Bilda en matris (13 rader och 20 kolumner) med standardiserade ordfrekvenser (dra ifrån `mean` och dela med `sd`)  och gör en singulärvärdesuppdelning (SVD) med `svd`. Plotta de två första kolumnerna i matrisen $U$ mot varandra och färglägg efter författare.
+
+Gör även en klustring av böckerna med hierarkis klusteranalys (`hclust`, valfria parametrar). Plotta ett dendrogram och bestäm resultatet av en klustering i två komponenter.
+
+Bonusuppgift: Använd paketet `babynames` för att uppskatta andelen amerikanska Potter-fans som förväxlat namnen "Hermione" och "Hermoine".
+
+
+
