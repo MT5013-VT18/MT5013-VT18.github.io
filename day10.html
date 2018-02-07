@@ -22,6 +22,10 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.0/htmlwidgets.js"></script>
+<link href="site_libs/jsoneditor-5.5.5/jsoneditor.min.css" rel="stylesheet" />
+<script src="site_libs/jsoneditor-5.5.5/jsoneditor.min.js"></script>
+<script src="site_libs/jsonedit-binding-1.4.0/jsonedit.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -209,7 +213,12 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#gor-detta-innan-lektion">Gör detta innan lektion</a></li>
-<li><a href="#under-lektion">Under lektion</a></li>
+<li><a href="#under-lektion">Under lektion</a><ul>
+<li><a href="#a-pi">a-<span class="math inline">\(\pi\)</span></a></li>
+<li><a href="#timeedit">TimeEdit</a></li>
+<li><a href="#scb">SCB</a></li>
+<li><a href="#systembolag">Systembolag</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -225,6 +234,196 @@ $(document).ready(function () {
 </div>
 <div id="under-lektion" class="section level2">
 <h2>Under lektion</h2>
+<div id="a-pi" class="section level3">
+<h3>a-<span class="math inline">\(\pi\)</span></h3>
+<p>Skriv en funktion</p>
+<pre class="r"><code>get_pi &lt;- function(start, numberOfDigits){
+    ...
+}</code></pre>
+<p>som anropar <a href="https://pi.delivery/#apipi_get">a-<span class="math inline">\(\pi\)</span></a> och returnerar siffrorna i <span class="math inline">\(\pi\)</span> från <code>start</code> till <code>start + numberOfDigits - 1</code>. Ett anrop görs med t.ex. <a href="https://api.pi.delivery/v1/pi?start=1000&amp;numberOfDigits=5" class="uri">https://api.pi.delivery/v1/pi?start=1000&amp;numberOfDigits=5</a>.</p>
+</div>
+<div id="timeedit" class="section level3">
+<h3>TimeEdit</h3>
+<p>Ett TimeEdit-schema kan fås i JSON-format genom att ändra <code>.html</code> till <code>.json</code> i länken, prova i webb-browser med <a href="https://se.timeedit.net/web/su/db1/stud1/ri107345X65Z06Q5Z86g2Y30y0076Y32Q05gQY5Q55727.html" class="uri">https://se.timeedit.net/web/su/db1/stud1/ri107345X65Z06Q5Z86g2Y30y0076Y32Q05gQY5Q55727.html</a></p>
+<p>Vi kan använda <code>GET</code> för att hämta till R</p>
+<pre class="r"><code>library(httr)
+schema_response &lt;- GET(&quot;https://se.timeedit.net/web/su/db1/stud1/ri107345X65Z06Q5Z86g2Y30y0076Y32Q05gQY5Q55727.json&quot;)
+schema_json &lt;- content(schema_response, &quot;text&quot;)</code></pre>
+<p>För att utforska resultatet kan vi använda <code>jsonedit</code> i paketet <code>listviewer</code></p>
+<pre class="r"><code>library(knitr)
+library(tidyverse)
+library(jsonlite)
+library(listviewer)
+jsonedit(schema_json)</code></pre>
+<div id="htmlwidget-417c017f16b998ee959a" style="width:672px;height:480px;" class="jsonedit html-widget"></div>
+<script type="application/json" data-for="htmlwidget-417c017f16b998ee959a">{"x":{"data":"{\"columnheaders\":[\"Kurs\",\"Kurstillfälle\",\"Lokal\",\"Byggnad\",\"Lärare\",\"Delkurs\",\"Moment\",\"Undervisningstyp\",\"Studentgrupp\",\"Information\",\"Litteraturinfo\"],\"info\":{\"reservationlimit\":200,\"reservationcount\":16},\"reservations\":[{\"id\":\"983352\",\"startdate\":\"2018-01-15\",\"starttime\":\"09:15\",\"enddate\":\"2018-01-15\",\"endtime\":\"12:00\",\"columns\":[\"MT5013\",\"48072,VT18,v:1803/1811,50% DAG,NML\",\"Sal 32\",\"Kräftriket hus 5\",\"Benjamin Allévius, Martin Sköld\",\"\",\"\",\"\",\"\",\"\",\"\"]},{\"id\":\"986362\",\"startdate\":\"2018-01-17\",\"starttime\":\"09:15\",\"enddate\":\"2018-01-17\",\"endtime\":\"12:00\",\"columns\":[\"MT5013\",\"48072,VT18,v:1803/1811,50% DAG,NML\",\"Sal 32\",\"Kräftriket hus 5\",\"Benjamin Allévius, Martin Sköld\",\"\",\"\",\"\",\"\",\"\",\"\"]},{\"id\":\"983353\",\"startdate\":\"2018-01-18\",\"starttime\":\"12:45\",\"enddate\":\"2018-01-18\",\"endtime\":\"15:30\",\"columns\":[\"MT5013\",\"48072,VT18,v:1803/1811,50% DAG,NML\",\"Sal 32\",\"Kräftriket hus 5\",\"Benjamin Allévius, Martin Sköld\",\"\",\"\",\"\",\"\",\"\",\"\"]},{\"id\":\"983355\",\"startdate\":\"2018-01-22\",\"starttime\":\"12:45\",\"enddate\":\"2018-01-22\",\"endtime\":\"15:30\",\"columns\":[\"MT5013\",\"48072,VT18,v:1803/1811,50% DAG,NML\",\"Sal 32\",\"Kräftriket hus 5\",\"Benjamin Allévius, Martin Sköld\",\"\",\"\",\"\",\"\",\"\",\"\"]},{\"id\":\"983356\",\"startdate\":\"2018-01-25\",\"starttime\":\"12:45\",\"enddate\":\"2018-01-25\",\"endtime\":\"15:30\",\"columns\":[\"MT5013\",\"48072,VT18,v:1803/1811,50% DAG,NML\",\"Sal 32\",\"Kräftriket hus 5\",\"Benjamin Allévius, Martin Sköld\",\"\",\"\",\"\",\"\",\"\",\"\"]},{\"id\":\"983368\",\"startdate\":\"2018-01-29\",\"starttime\":\"12:45\",\"enddate\":\"2018-01-29\",\"endtime\":\"15:30\",\"columns\":[\"MT5013\",\"48072,VT18,v:1803/1811,50% DAG,NML\",\"Sal 32\",\"Kräftriket hus 5\",\"Benjamin Allévius, Martin Sköld\",\"\",\"\",\"\",\"\",\"\",\"\"]},{\"id\":\"986651\",\"startdate\":\"2018-01-31\",\"starttime\":\"09:15\",\"enddate\":\"2018-01-31\",\"endtime\":\"12:00\",\"columns\":[\"MT5013\",\"48072,VT18,v:1803/1811,50% DAG,NML\",\"Sal 32\",\"Kräftriket hus 5\",\"Benjamin Allévius, Martin Sköld\",\"\",\"\",\"\",\"\",\"\",\"\"]},{\"id\":\"983369\",\"startdate\":\"2018-02-01\",\"starttime\":\"12:45\",\"enddate\":\"2018-02-01\",\"endtime\":\"15:30\",\"columns\":[\"MT5013\",\"48072,VT18,v:1803/1811,50% DAG,NML\",\"Sal 32\",\"Kräftriket hus 5\",\"Benjamin Allévius, Martin Sköld\",\"\",\"\",\"\",\"\",\"\",\"\"]},{\"id\":\"983370\",\"startdate\":\"2018-02-05\",\"starttime\":\"12:45\",\"enddate\":\"2018-02-05\",\"endtime\":\"15:30\",\"columns\":[\"MT5013\",\"48072,VT18,v:1803/1811,50% DAG,NML\",\"Sal 32\",\"Kräftriket hus 5\",\"Benjamin Allévius, Martin Sköld\",\"\",\"\",\"\",\"\",\"\",\"\"]},{\"id\":\"983372\",\"startdate\":\"2018-02-08\",\"starttime\":\"12:45\",\"enddate\":\"2018-02-08\",\"endtime\":\"15:30\",\"columns\":[\"MT5013\",\"48072,VT18,v:1803/1811,50% DAG,NML\",\"Sal 32\",\"Kräftriket hus 5\",\"Benjamin Allévius, Martin Sköld\",\"\",\"\",\"\",\"\",\"\",\"\"]},{\"id\":\"983374\",\"startdate\":\"2018-02-12\",\"starttime\":\"12:45\",\"enddate\":\"2018-02-12\",\"endtime\":\"15:30\",\"columns\":[\"MT5013\",\"48072,VT18,v:1803/1811,50% DAG,NML\",\"Sal 32\",\"Kräftriket hus 5\",\"Benjamin Allévius, Martin Sköld\",\"\",\"\",\"\",\"\",\"\",\"\"]},{\"id\":\"983375\",\"startdate\":\"2018-02-15\",\"starttime\":\"12:45\",\"enddate\":\"2018-02-15\",\"endtime\":\"15:30\",\"columns\":[\"MT5013\",\"48072,VT18,v:1803/1811,50% DAG,NML\",\"Sal 32\",\"Kräftriket hus 5\",\"Benjamin Allévius, Martin Sköld\",\"\",\"\",\"\",\"\",\"\",\"\"]},{\"id\":\"983376\",\"startdate\":\"2018-02-19\",\"starttime\":\"12:45\",\"enddate\":\"2018-02-19\",\"endtime\":\"15:30\",\"columns\":[\"MT5013\",\"48072,VT18,v:1803/1811,50% DAG,NML\",\"Sal 32\",\"Kräftriket hus 5\",\"Benjamin Allévius, Martin Sköld\",\"\",\"\",\"\",\"\",\"\",\"\"]},{\"id\":\"983377\",\"startdate\":\"2018-02-22\",\"starttime\":\"12:45\",\"enddate\":\"2018-02-22\",\"endtime\":\"15:30\",\"columns\":[\"MT5013\",\"48072,VT18,v:1803/1811,50% DAG,NML\",\"Sal 32\",\"Kräftriket hus 5\",\"Benjamin Allévius, Martin Sköld\",\"\",\"\",\"\",\"\",\"\",\"\"]},{\"id\":\"993184\",\"startdate\":\"2018-02-27\",\"starttime\":\"13:00\",\"enddate\":\"2018-02-27\",\"endtime\":\"17:00\",\"columns\":[\"MT5013\",\"48072,VT18,v:1803/1811,50% DAG,NML\",\"Sal 36\",\"Kräftriket hus 5\",\"Martin Sköld\",\"\",\"\",\"Tentamen\",\"\",\"\",\"\"]},{\"id\":\"993188\",\"startdate\":\"2018-03-12\",\"starttime\":\"12:45\",\"enddate\":\"2018-03-12\",\"endtime\":\"16:00\",\"columns\":[\"MT5013\",\"48072,VT18,v:1803/1811,50% DAG,NML\",\"Sal 32\",\"Kräftriket hus 5\",\"Benjamin Allévius, Martin Sköld\",\"\",\"\",\"Obligatorisk närvaro, Redovisning\",\"\",\"\",\"\"]}]}","options":{"mode":"tree","modes":["code","form","text","tree","view"]}},"evals":[],"jsHooks":[]}</script>
+<p>Vi konverterar med <code>fromJSON</code> och plockar ut <code>reservations</code></p>
+<pre class="r"><code>schema_df &lt;- fromJSON(schema_json)$reservations</code></pre>
+<p>Resultatet är en <code>data.frame</code> med sex kolumner, där den sista kolumnen innehåller en vektor i varje cell. För att få ut element ur denna kolumn använder vi <code>mutate</code> i kombination <code>map_chr</code>. Familjen av <code>map</code>-funktioner kommer vi prata mer om i slutet av kursen, i detta fall motsvaras <code>map_chr(columns, 1)</code> av <code>sapply(columns, function (x) x[1])</code> i bas-R.</p>
+<pre class="r"><code>schema_df %&gt;% mutate(sal = map_chr(columns, 3), 
+                     kurs = map_chr(columns, 1), 
+                     tid = paste(starttime, endtime, sep = &quot; - &quot;)) %&gt;% 
+    select(kurs, datum = startdate, tid, sal) %&gt;% 
+    kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">kurs</th>
+<th align="left">datum</th>
+<th align="left">tid</th>
+<th align="left">sal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">MT5013</td>
+<td align="left">2018-01-15</td>
+<td align="left">09:15 - 12:00</td>
+<td align="left">Sal 32</td>
+</tr>
+<tr class="even">
+<td align="left">MT5013</td>
+<td align="left">2018-01-17</td>
+<td align="left">09:15 - 12:00</td>
+<td align="left">Sal 32</td>
+</tr>
+<tr class="odd">
+<td align="left">MT5013</td>
+<td align="left">2018-01-18</td>
+<td align="left">12:45 - 15:30</td>
+<td align="left">Sal 32</td>
+</tr>
+<tr class="even">
+<td align="left">MT5013</td>
+<td align="left">2018-01-22</td>
+<td align="left">12:45 - 15:30</td>
+<td align="left">Sal 32</td>
+</tr>
+<tr class="odd">
+<td align="left">MT5013</td>
+<td align="left">2018-01-25</td>
+<td align="left">12:45 - 15:30</td>
+<td align="left">Sal 32</td>
+</tr>
+<tr class="even">
+<td align="left">MT5013</td>
+<td align="left">2018-01-29</td>
+<td align="left">12:45 - 15:30</td>
+<td align="left">Sal 32</td>
+</tr>
+<tr class="odd">
+<td align="left">MT5013</td>
+<td align="left">2018-01-31</td>
+<td align="left">09:15 - 12:00</td>
+<td align="left">Sal 32</td>
+</tr>
+<tr class="even">
+<td align="left">MT5013</td>
+<td align="left">2018-02-01</td>
+<td align="left">12:45 - 15:30</td>
+<td align="left">Sal 32</td>
+</tr>
+<tr class="odd">
+<td align="left">MT5013</td>
+<td align="left">2018-02-05</td>
+<td align="left">12:45 - 15:30</td>
+<td align="left">Sal 32</td>
+</tr>
+<tr class="even">
+<td align="left">MT5013</td>
+<td align="left">2018-02-08</td>
+<td align="left">12:45 - 15:30</td>
+<td align="left">Sal 32</td>
+</tr>
+<tr class="odd">
+<td align="left">MT5013</td>
+<td align="left">2018-02-12</td>
+<td align="left">12:45 - 15:30</td>
+<td align="left">Sal 32</td>
+</tr>
+<tr class="even">
+<td align="left">MT5013</td>
+<td align="left">2018-02-15</td>
+<td align="left">12:45 - 15:30</td>
+<td align="left">Sal 32</td>
+</tr>
+<tr class="odd">
+<td align="left">MT5013</td>
+<td align="left">2018-02-19</td>
+<td align="left">12:45 - 15:30</td>
+<td align="left">Sal 32</td>
+</tr>
+<tr class="even">
+<td align="left">MT5013</td>
+<td align="left">2018-02-22</td>
+<td align="left">12:45 - 15:30</td>
+<td align="left">Sal 32</td>
+</tr>
+<tr class="odd">
+<td align="left">MT5013</td>
+<td align="left">2018-02-27</td>
+<td align="left">13:00 - 17:00</td>
+<td align="left">Sal 36</td>
+</tr>
+<tr class="even">
+<td align="left">MT5013</td>
+<td align="left">2018-03-12</td>
+<td align="left">12:45 - 16:00</td>
+<td align="left">Sal 32</td>
+</tr>
+</tbody>
+</table>
+<p>Bokningarna för sal 14 under vårterminen hittar du på</p>
+<p><a href="https://se.timeedit.net/web/su/db1/stud1/ri157345X69Z07Q5Z76g0Y30y0076Y31Q09gQY5Q55777.html" class="uri">https://se.timeedit.net/web/su/db1/stud1/ri157345X69Z07Q5Z76g0Y30y0076Y31Q09gQY5Q55777.html</a></p>
+<p>vilken lärare är mest schemalagd i lokalen?</p>
+</div>
+<div id="scb" class="section level3">
+<h3>SCB</h3>
+<p>Om du genererat en tabell i <a href="http://www.statistikdatabasen.scb.se/">Statistikdatabasen</a> hittar du längst ned en länk “API för denna tabell” som ger en url och en fråga som skall ställas med POST för att hämta tabellen. Prova hämta en tabell med <code>httr::POST</code>, frågan skall anges i funktionens <code>body</code>-parameter. Tips: längst ned i frågan kan du byta <code>&quot;format&quot;: &quot;px&quot;</code> mot <code>&quot;format&quot;: &quot;json&quot;</code> för att få svaret i JSON-format. Hämta en tabell, undersök strukturen och försök plocka ut en lämplig <code>data.frame</code>.</p>
+</div>
+<div id="systembolag" class="section level3">
+<h3>Systembolag</h3>
+<p>Systembolagets API använder XML, sortimentsfilen ser dock ut att vara i fel format. Istället kan vi hämta butikslistan med</p>
+<pre class="r"><code>butiker_response &lt;- GET(&quot;https://www.systembolaget.se/api/assortment/stores/xml&quot;)
+http_type(butiker_response)</code></pre>
+<pre><code>## [1] &quot;application/xml&quot;</code></pre>
+<p>Vi konverterar till XML-fomat med</p>
+<pre class="r"><code>library(xml2)
+butiker_xml &lt;- read_xml(butiker_response)</code></pre>
+<p>och tittar på första butiken med</p>
+<pre class="r"><code>xml_find_first(butiker_xml, &quot;/ButikerOmbud/ButikOmbud&quot;)</code></pre>
+<pre><code>## {xml_node}
+## &lt;ButikOmbud type=&quot;StoreAssortmentViewModel&quot;&gt;
+##  [1] &lt;Typ&gt;Butik&lt;/Typ&gt;
+##  [2] &lt;Nr&gt;0102&lt;/Nr&gt;
+##  [3] &lt;Namn&gt;Fältöversten&lt;/Namn&gt;
+##  [4] &lt;Address1&gt;Karlaplan 13&lt;/Address1&gt;
+##  [5] &lt;Address2/&gt;
+##  [6] &lt;Address3&gt;115 20&lt;/Address3&gt;
+##  [7] &lt;Address4&gt;STOCKHOLM&lt;/Address4&gt;
+##  [8] &lt;Address5&gt;Stockholms län&lt;/Address5&gt;
+##  [9] &lt;Telefon&gt;08/662 22 89&lt;/Telefon&gt;
+## [10] &lt;ButiksTyp/&gt;
+## [11] &lt;Tjanster/&gt;
+## [12] &lt;SokOrd&gt;STOCKHOLM;STHLM;ÖSTERMALM;KARLAPLANSRONDELLEN;FÄLTAN&lt;/SokOrd&gt;
+## [13] &lt;Oppettider&gt;2018-02-07;10:00;19:00;;;0;_*2018-02-08;10:00;19:00;;;0 ...
+## [14] &lt;RT90x&gt;6582011&lt;/RT90x&gt;
+## [15] &lt;RT90y&gt;1630064&lt;/RT90y&gt;</code></pre>
+<p>För att få ut t.ex. butiksnamnen använder vi nu</p>
+<pre class="r"><code>xml_find_all(butiker_xml, &quot;//Namn&quot;)[1:10]</code></pre>
+<pre><code>## {xml_nodeset (10)}
+##  [1] &lt;Namn&gt;Fältöversten&lt;/Namn&gt;
+##  [2] &lt;Namn/&gt;
+##  [3] &lt;Namn&gt;Garnisonen&lt;/Namn&gt;
+##  [4] &lt;Namn/&gt;
+##  [5] &lt;Namn&gt;Sergel&lt;/Namn&gt;
+##  [6] &lt;Namn&gt;PK-Huset&lt;/Namn&gt;
+##  [7] &lt;Namn/&gt;
+##  [8] &lt;Namn&gt;Marieberg&lt;/Namn&gt;
+##  [9] &lt;Namn/&gt;
+## [10] &lt;Namn/&gt;</code></pre>
+<p>uppenbarligen har inte alla butiker ett namn. Hur många butiker finns i respektive län?</p>
+</div>
 </div>
 
 

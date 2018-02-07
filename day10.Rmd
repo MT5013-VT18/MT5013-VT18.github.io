@@ -5,7 +5,9 @@ output:
     toc: true
     toc_depth: 4    
 ---
-
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
 ## Gör detta innan lektion
 
 Lös kapitlen *Downloading Files and Using API Clients*, *Using httr to interact with APIs directly* och *Handling JSON and XML* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18).
@@ -18,3 +20,91 @@ Resurser:
 * [Öppna data och PSI](https://oppnadata.se/) innehåller en katalog över resurser från svenska myndigheter.
 
 ## Under lektion
+
+### a-$\pi$
+
+Skriv en funktion
+```{r, eval = FALSE}
+get_pi <- function(start, numberOfDigits){
+    ...
+}
+```
+som anropar [a-$\pi$](https://pi.delivery/#apipi_get) och returnerar siffrorna i $\pi$ från `start` till `start + numberOfDigits - 1`. Ett anrop görs med t.ex. <https://api.pi.delivery/v1/pi?start=1000&numberOfDigits=5>.
+
+### TimeEdit
+
+Ett TimeEdit-schema kan fås i JSON-format genom att ändra `.html` till `.json` i länken, prova i webb-browser med
+<https://se.timeedit.net/web/su/db1/stud1/ri107345X65Z06Q5Z86g2Y30y0076Y32Q05gQY5Q55727.html>
+
+Vi kan använda `GET` för att hämta till R
+
+```{r}
+library(httr)
+schema_response <- GET("https://se.timeedit.net/web/su/db1/stud1/ri107345X65Z06Q5Z86g2Y30y0076Y32Q05gQY5Q55727.json")
+schema_json <- content(schema_response, "text")
+```
+
+För att utforska resultatet kan vi använda `jsonedit` i paketet `listviewer`
+```{r}
+library(knitr)
+library(tidyverse)
+library(jsonlite)
+library(listviewer)
+jsonedit(schema_json)
+```
+
+Vi konverterar med `fromJSON` och plockar ut `reservations`
+```{r}
+schema_df <- fromJSON(schema_json)$reservations
+```
+
+Resultatet är en `data.frame` med sex kolumner, där den sista kolumnen innehåller en vektor i varje cell. För att få ut element ur denna kolumn använder vi `mutate` i kombination `map_chr`. Familjen av `map`-funktioner kommer vi prata mer om i slutet av kursen, i detta fall motsvaras `map_chr(columns, 1)` av `sapply(columns, function (x) x[1])` i bas-R.
+
+
+```{r}
+schema_df %>% mutate(sal = map_chr(columns, 3), 
+                     kurs = map_chr(columns, 1), 
+                     tid = paste(starttime, endtime, sep = " - ")) %>% 
+    select(kurs, datum = startdate, tid, sal) %>% 
+    kable()
+```
+
+
+Bokningarna för sal 14 under vårterminen hittar du på
+
+<https://se.timeedit.net/web/su/db1/stud1/ri157345X69Z07Q5Z76g0Y30y0076Y31Q09gQY5Q55777.html>
+
+vilken lärare är mest schemalagd i lokalen?
+
+### SCB
+
+Om du genererat en tabell i [Statistikdatabasen](http://www.statistikdatabasen.scb.se/) hittar du längst ned en länk "API för denna tabell" som ger en url och en fråga som skall ställas med POST för att hämta tabellen. Prova hämta en tabell med `httr::POST`, frågan skall anges i funktionens `body`-parameter. Tips: längst ned i frågan kan du byta `"format": "px"` mot `"format": "json"` för att få svaret i JSON-format. Hämta en tabell, undersök strukturen och försök plocka ut en lämplig `data.frame`.
+
+### Systembolag
+
+Systembolagets API använder XML, sortimentsfilen ser dock ut att vara i fel format. Istället kan vi hämta butikslistan med
+```{r}
+butiker_response <- GET("https://www.systembolaget.se/api/assortment/stores/xml")
+http_type(butiker_response)
+```
+
+Vi konverterar till XML-fomat med
+
+```{r}
+library(xml2)
+butiker_xml <- read_xml(butiker_response)
+```
+och tittar på första butiken med
+```{r}
+xml_find_first(butiker_xml, "/ButikerOmbud/ButikOmbud")
+```
+För att få ut t.ex. butiksnamnen använder vi nu
+```{r}
+xml_find_all(butiker_xml, "//Namn")[1:10]
+```
+
+uppenbarligen har inte alla butiker ett namn. Hur många butiker finns i respektive län?
+
+
+
+
