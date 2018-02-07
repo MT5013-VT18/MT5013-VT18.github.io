@@ -21,7 +21,7 @@ Resurser:
 
 ## Under lektion
 
-### a-$\pi$
+### a-pi
 
 Skriv en funktion
 ```{r, eval = FALSE}
@@ -29,7 +29,7 @@ get_pi <- function(start, numberOfDigits){
     ...
 }
 ```
-som anropar [a-$\pi$](https://pi.delivery/#apipi_get) och returnerar siffrorna i $\pi$ från `start` till `start + numberOfDigits - 1`. Ett anrop görs med t.ex. <https://api.pi.delivery/v1/pi?start=1000&numberOfDigits=5>.
+som anropar [a-pi](https://pi.delivery/#apipi_get) och returnerar siffrorna i $\pi$ från `start` till `start + numberOfDigits - 1`. Ett anrop görs med t.ex. <https://api.pi.delivery/v1/pi?start=1000&numberOfDigits=5>.
 
 ### TimeEdit
 
