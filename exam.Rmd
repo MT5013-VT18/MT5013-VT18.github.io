@@ -8,5 +8,7 @@ En digital tentamen, motsvarande 1.5 hp, är schemalagd eftermiddagen **2018-02-
 * [R Markdown Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
 * [Data Visualization Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
 * [Data Transformation Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
+* [Data Import Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)
+* [Working with Strings Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/strings.pdf)
 
-som delas ut i samband med tentamen.
+som delas ut i samband med tentamen. Utöver dessa kommer även ett SQL Cheat Sheet delas ut.
