@@ -74,11 +74,41 @@ Bokningarna för sal 14 under vårterminen hittar du på
 
 <https://se.timeedit.net/web/su/db1/stud1/ri157345X69Z07Q5Z76g0Y30y0076Y31Q09gQY5Q55777.html>
 
-vilken lärare är mest schemalagd i lokalen?
+* vilken lärare är mest schemalagd i sal 14?
 
 ### SCB
 
 Om du genererat en tabell i [Statistikdatabasen](http://www.statistikdatabasen.scb.se/) hittar du längst ned en länk "API för denna tabell" som ger en url och en fråga som skall ställas med POST för att hämta tabellen. Prova hämta en tabell med `httr::POST`, frågan skall anges i funktionens `body`-parameter. Tips: längst ned i frågan kan du byta `"format": "px"` mot `"format": "json"` för att få svaret i JSON-format. Hämta en tabell, undersök strukturen och försök plocka ut en lämplig `data.frame`.
+
+### Senaste dygnet på Bromma
+
+Senaste dygnets timvisa temperaturobservationer (parameter 1) på Bromma (station 97200) kan hämtas från SMHI med (byt `xml` mot `json` för att ändra format)
+
+```{r}
+temp_response <- GET("https://opendata-download-metobs.smhi.se/api/version/1.0/parameter/1/station/97200/period/latest-day/data.xml")
+http_type(temp_response)
+```
+
+Vi konverterar till XML-format med
+
+```{r}
+library(xml2)
+temp_xml <- read_xml(temp_response)
+class(temp_xml)
+```
+
+Strukturen ser man enklast genom att öppna 
+
+<https://opendata-download-metobs.smhi.se/api/version/1.0/parameter/1/station/97200/period/latest-day/data.xml> 
+
+i web-browsern. Vi ser att temperaturerna ligger i `XPATH` `"/metObsSampleData/value/value"`:
+
+```{r}
+xml_ns_strip(temp_xml) # Överkurs
+xml_find_all(temp_xml, "/metObsSampleData/value/value")
+```
+* Ta även fram tidpunkterna.
+* Välj ut och ta fram någon annan parameter/station (se [SMHI](https://opendata-download-metobs.smhi.se/explore/#)). Prova även JSON-formatet.
 
 ### Systembolag
 
@@ -91,7 +121,6 @@ http_type(butiker_response)
 Vi konverterar till XML-fomat med
 
 ```{r}
-library(xml2)
 butiker_xml <- read_xml(butiker_response)
 ```
 och tittar på första butiken med
@@ -103,7 +132,9 @@ För att få ut t.ex. butiksnamnen använder vi nu
 xml_find_all(butiker_xml, "//Namn")[1:10]
 ```
 
-uppenbarligen har inte alla butiker ett namn. Hur många butiker finns i respektive län?
+uppenbarligen har inte alla butiker ett namn. 
+
+* Hur många butiker finns i respektive län?
 
 
 
