@@ -209,7 +209,13 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#gor-detta-innan-lektion">Gör detta innan lektion</a></li>
-<li><a href="#under-lektion">Under lektion</a></li>
+<li><a href="#under-lektion">Under lektion</a><ul>
+<li><a href="#selectorgadget">Selectorgadget</a></li>
+<li><a href="#pockettoppen-pa-bokus">Pockettoppen på Bokus</a></li>
+<li><a href="#shl-spelare">SHL-spelare</a></li>
+<li><a href="#tablatv">TablåTV</a></li>
+<li><a href="#nyheter-pa-svt">Nyheter på SVT</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -219,6 +225,31 @@ $(document).ready(function () {
 </div>
 <div id="under-lektion" class="section level2">
 <h2>Under lektion</h2>
+<p>OBS: Att en webb-site saknar ett öppet API kan ses som ett tecken på att de inte vill dela med sig av sina data. Respektera detta genom att inte återpublicera utan att fråga och inte belasta i onödan. Se vidare <a href="https://lagen.nu/1960:729#P49S1">katalogskyddet</a>.</p>
+<div id="selectorgadget" class="section level3">
+<h3>Selectorgadget</h3>
+<p>Läs <code>vignette(&quot;selectorgadget&quot;)</code>.</p>
+</div>
+<div id="pockettoppen-pa-bokus" class="section level3">
+<h3>Pockettoppen på Bokus</h3>
+<p>Skrapa fram titel, författare, betyg, pris, … på böckerna i <a href="https://www.bokus.com/topplistor/pockettoppen">pockettoppen</a> (några tas fram med <code>html_text</code>, andra med <code>html_attr</code>).</p>
+</div>
+<div id="shl-spelare" class="section level3">
+<h3>SHL-spelare</h3>
+<ul>
+<li><p>Givet en spelar-url (t.ex. <a href="http://www.shl.se/lag/087a-087aTQv9u__frolunda-hc/qQ9-a5b4QRqdS__ryan-lasch" class="uri">http://www.shl.se/lag/087a-087aTQv9u__frolunda-hc/qQ9-a5b4QRqdS__ryan-lasch</a>), plocka fram födelsedatum, ålder, nationalitet…</p></li>
+<li><p>Givet en spelares statistiksida (t.ex. <a href="http://www.shl.se/lag/087a-087aTQv9u__frolunda-hc/qQ9-a5b4QRqdS__ryan-lasch/statistics" class="uri">http://www.shl.se/lag/087a-087aTQv9u__frolunda-hc/qQ9-a5b4QRqdS__ryan-lasch/statistics</a>), plocka fram säsongsstatistiken med <code>html_table</code>.</p></li>
+<li><p>Givet en lagsida (t.ex. <a href="http://www.shl.se/lag/2459-2459QTs1f__djurgarden-hockey/roster" class="uri">http://www.shl.se/lag/2459-2459QTs1f__djurgarden-hockey/roster</a>), plocka fram en lista på spelar-url:s för lagets spelare.</p></li>
+</ul>
+</div>
+<div id="tablatv" class="section level3">
+<h3>TablåTV</h3>
+<p>Skrapa TV-tablån för given dag och kanal på t.ex. <a href="https://www.tv.nu/kanal/svt1/2018-02-12" class="uri">https://www.tv.nu/kanal/svt1/2018-02-12</a>.</p>
+</div>
+<div id="nyheter-pa-svt" class="section level3">
+<h3>Nyheter på SVT</h3>
+<p>Skrapa nyhetsrubrikerna på <a href="https://www.svt.se/" class="uri">https://www.svt.se/</a>.</p>
+</div>
 </div>
 
 

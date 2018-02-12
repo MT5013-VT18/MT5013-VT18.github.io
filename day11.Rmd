@@ -11,3 +11,32 @@ output:
 Lös kapitlen *Web scraping with XPATHs* och *CSS Web Scraping and Final Case Study* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18).
 
 ## Under lektion
+
+OBS: Att en webb-site saknar ett öppet API kan ses som ett tecken på att de inte vill dela med sig av sina data. Respektera detta genom att inte återpublicera utan att fråga och inte belasta i onödan. Se vidare [katalogskyddet](https://lagen.nu/1960:729#P49S1).
+
+### Selectorgadget
+
+Läs `vignette("selectorgadget")`.
+
+
+### Pockettoppen på Bokus
+
+Skrapa fram titel, författare, betyg, pris, ... på böckerna i [pockettoppen](https://www.bokus.com/topplistor/pockettoppen) (några tas fram med `html_text`, andra med `html_attr`).
+
+### SHL-spelare
+
+* Givet en spelar-url (t.ex. <http://www.shl.se/lag/087a-087aTQv9u__frolunda-hc/qQ9-a5b4QRqdS__ryan-lasch>), plocka fram födelsedatum, ålder, nationalitet...
+
+* Givet en spelares statistiksida (t.ex. <http://www.shl.se/lag/087a-087aTQv9u__frolunda-hc/qQ9-a5b4QRqdS__ryan-lasch/statistics>), plocka fram säsongsstatistiken med `html_table`.
+
+* Givet en lagsida (t.ex. <http://www.shl.se/lag/2459-2459QTs1f__djurgarden-hockey/roster>), plocka fram en lista på spelar-url:s för lagets spelare.
+
+
+### TablåTV
+
+Skrapa TV-tablån för given dag och kanal på t.ex. <https://www.tv.nu/kanal/svt1/2018-02-12>.
+
+### Nyheter på SVT
+
+Skrapa nyhetsrubrikerna på <https://www.svt.se/>.
+
