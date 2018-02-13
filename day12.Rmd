@@ -10,4 +10,6 @@ output:
 
 Lös kapitlen *A quick refresher* och *When and how you should write a function* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18).
 
+Läs [R4DS](http://r4ds.had.co.nz/) kapitel 19, 20.1-20.4. 
+
 ## Under lektion
