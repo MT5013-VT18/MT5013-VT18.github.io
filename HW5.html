@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>HW5: Externa data</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statical Data Processing (MT5013)</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="schedule.html">Schedule</a>
+</li>
+<li>
+  <a href="HW.html">Homework</a>
+</li>
+<li>
+  <a href="exam.html">Exam</a>
+</li>
+<li>
+  <a href="project.html">Project</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">HW5: Externa data</h1>
+
+</div>
+
+
+<div id="koladakoroplet" class="section level1">
+<h1>Koladakoroplet</h1>
+<p>En korpletkarta (ENG: <a href="https://en.wikipedia.org/wiki/Choropleth_map">choroplet</a>) är en karta där regioner är färglagda efter värdet på en tillhörande variabel. I denna uppgift skall ni skapa en funktion som plottar koropletkartor färglagda efter nyckeltal från <a href="https://www.kolada.se/index.php?_p=index">Kommun- och Landstingsdatabasen (Kolada)</a>.</p>
+<p>En tabell med sveriges kommungränser i polygonformat finns på <a href="https://github.com/MT5013-VT18/HW_data" class="uri">https://github.com/MT5013-VT18/HW_data</a> som <code>kommun_karta.csv</code>. Ladda ner denna och placera i ett underbibliotek <code>data</code> till ditt <code>Homework</code>-repo. En titt på filens innehåll ger</p>
+<pre class="r"><code>kommun_karta &lt;- read_csv(&quot;data/kommun_karta.csv&quot;)
+glimpse(kommun_karta)</code></pre>
+<pre><code>## Observations: 632,251
+## Variables: 7
+## $ long  &lt;dbl&gt; 661116.3, 661171.5, 661182.7, 661198.9, 661205.9, 661210...
+## $ lat   &lt;dbl&gt; 6606615, 6606604, 6606605, 6606606, 6606605, 6606594, 66...
+## $ order &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1...
+## $ hole  &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, ...
+## $ piece &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
+## $ id    &lt;chr&gt; &quot;0114&quot;, &quot;0114&quot;, &quot;0114&quot;, &quot;0114&quot;, &quot;0114&quot;, &quot;0114&quot;, &quot;0114&quot;, ...
+## $ group &lt;chr&gt; &quot;0114.1&quot;, &quot;0114.1&quot;, &quot;0114.1&quot;, &quot;0114.1&quot;, &quot;0114.1&quot;, &quot;0114....</code></pre>
+<p>Här ger <code>long</code>/<code>lat</code> polygonernas hörn, <code>order</code> anger i vilken ordning det skall dras linjer mellan hörnen, <code>hole</code> anger om polygonen är ett hål (en sjö), <code>piece</code> anger ordningstal om en kommun består av flera polygoner, <code>id</code> är <a href="http://www.scb.se/hitta-statistik/regional-statistik-och-kartor/regionala-indelningar/lan-och-kommuner/lan-och-kommuner-i-kodnummerordning/">kommunens nummer</a> och <code>group</code> en sammanslagning av <code>piece</code> och <code>order</code>.</p>
+<p>En karta, här förenkelhetens skull färglagd efter kommunnummer (<code>fill = as.numeric(id)</code>), fås nu genom</p>
+<pre class="r"><code>ggplot(kommun_karta, aes(x = long, y = lat, group = group, fill = as.numeric(id))) +
+    geom_polygon() +
+    coord_fixed() +
+    theme_minimal()</code></pre>
+<p><img src="HW5_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Ta gärna bort stödlinjer och skalor på axlarna med hjälp av <code>theme</code> då de inte fyller någon större funktion här.</p>
+<div id="uppgift" class="section level3">
+<h3>Uppgift</h3>
+<p>Skriv en funktion</p>
+<pre class="r"><code>plot_koroplet(kpi, year = 2017, karta = kommun_karta){
+    ...
+}</code></pre>
+<p>som givet nyckeltal (<code>kpi</code>), t.ex. <code>&quot;U09401&quot;</code> (Nöjd Medborgarindex - Kultur), och år plottar en koropletkarta över sveriges kommuner färglagt efter nyckeltalet. Du kan begränsa dig till kommunerna i ett givet län om du tycker det går trögt att plotta hela landet.</p>
+<p>Nyckeltalets värden skall funktionen hämta från <a href="https://www.kolada.se/index.php?_p=index/API">Koladas API</a>. Demonstrera att funktionen fungerar.</p>
+</div>
+</div>
+<div id="dramatens-uppsattningar" class="section level1">
+<h1>Dramatens uppsättningar</h1>
+<p>Skriv en funktion</p>
+<pre class="r"><code>repertoar &lt;- function(year){
+    ...
+}</code></pre>
+<p>som returnerar en tabell med Dramatens uppsättningar ett givet år (kolumner <em>Uppsättning, Premiärdatum, Regissör, Scen</em>). Uppsättningarna för t.ex. invigningsåret 1908 fås genom att skrapa tabellen på <a href="http://www.dramaten.se/medverkande/rollboken/?category=date&amp;query=1908" class="uri">http://www.dramaten.se/medverkande/rollboken/?category=date&amp;query=1908</a>. Undersök sidkällan eller använd <a href="https://cran.r-project.org/web/packages/rvest/vignettes/selectorgadget.html">SelectorGadget</a> för att identifiera lämpliga parametervärden att skicka till <code>html_nodes</code>.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

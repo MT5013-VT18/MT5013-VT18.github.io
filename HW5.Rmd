@@ -1,0 +1,56 @@
+---
+title: "HW5: Externa data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+suppressPackageStartupMessages(library(tidyverse))
+```
+
+# Koladakoroplet
+
+En korpletkarta (ENG: [choroplet](https://en.wikipedia.org/wiki/Choropleth_map)) är en karta där regioner är färglagda efter värdet på en tillhörande variabel. I denna uppgift skall ni skapa en funktion som plottar koropletkartor färglagda efter nyckeltal från [Kommun- och Landstingsdatabasen (Kolada)](https://www.kolada.se/index.php?_p=index).
+
+En tabell med sveriges kommungränser i polygonformat finns  på <https://github.com/MT5013-VT18/HW_data> som `kommun_karta.csv`. Ladda ner denna och placera i ett underbibliotek `data` till ditt `Homework`-repo. En titt på filens innehåll ger
+```{r}
+kommun_karta <- read_csv("data/kommun_karta.csv")
+glimpse(kommun_karta)
+```
+
+Här ger `long`/`lat` polygonernas hörn, `order` anger i vilken ordning det skall dras linjer mellan hörnen, `hole` anger om polygonen är ett hål (en sjö), `piece` anger ordningstal om en kommun består av flera polygoner, `id` är [kommunens nummer](http://www.scb.se/hitta-statistik/regional-statistik-och-kartor/regionala-indelningar/lan-och-kommuner/lan-och-kommuner-i-kodnummerordning/) och `group` en sammanslagning av `piece` och `order`.
+
+En karta, här förenkelhetens skull färglagd efter kommunnummer (`fill = as.numeric(id)`), fås nu genom
+```{r}
+ggplot(kommun_karta, aes(x = long, y = lat, group = group, fill = as.numeric(id))) +
+    geom_polygon() +
+    coord_fixed() +
+    theme_minimal()
+```
+
+Ta gärna bort stödlinjer och skalor på axlarna med hjälp av `theme` då de inte fyller någon större funktion här.
+
+### Uppgift
+
+Skriv en funktion
+```{r, eval = FALSE}
+plot_koroplet(kpi, year = 2017, karta = kommun_karta){
+    ...
+}
+```
+som givet nyckeltal (`kpi`), t.ex. `"U09401"` (Nöjd Medborgarindex - Kultur), och år plottar en koropletkarta över sveriges kommuner färglagt efter nyckeltalet. Du kan begränsa dig till kommunerna i ett givet län om du tycker det går trögt att plotta hela landet.
+
+Nyckeltalets värden skall funktionen hämta från [Koladas API](https://www.kolada.se/index.php?_p=index/API). Demonstrera att funktionen fungerar.
+
+# Dramatens uppsättningar
+
+Skriv en funktion
+```{r, eval = FALSE}
+repertoar <- function(year){
+    ...
+}
+```
+
+som returnerar en tabell med Dramatens uppsättningar ett givet år (kolumner *Uppsättning, Premiärdatum, Regissör, Scen*). Uppsättningarna för t.ex. invigningsåret 1908 fås genom att skrapa tabellen på <http://www.dramaten.se/medverkande/rollboken/?category=date&query=1908>. Undersök sidkällan eller använd [SelectorGadget](https://cran.r-project.org/web/packages/rvest/vignettes/selectorgadget.html) för att identifiera lämpliga parametervärden att skicka till `html_nodes`.
+
+
