@@ -10,4 +10,20 @@ output:
 
 Lös kapitlen *A quick refresher* och *When and how you should write a function* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18).
 
+Läs [R4DS](http://r4ds.had.co.nz/) kapitel 19, 20.1-20.4. 
+
 ## Under lektion
+
+Gör övningarna i [R4DS](http://r4ds.had.co.nz/) kapitel 19.
+
+### Monte-Carlo integrering
+
+Om $X$ är likformigt fördelad på intervallet $(a,b)$ blir
+$E(f(X))=\int_{a}^bf(x)/(b-a)\,dx$. Detta kan vi utnyttja 
+tillsammans med Stora talens lag för att approximera integraler:
+
+1. Simulera ett stort antal $x_1,\ldots, x_N$ likformigt fördelade slumptal på $(a, b)$.
+2. Bestäm $I=(b-a)\sum_{i=1}^N f(x_i)/N$.
+
+Enligt Stora talens lag konvergerar $I$ mot  $\int_{a}^bf(x)\,dx$ då $N\rightarrow\infty$ och kan därför ses som en numerisk approximation av integralen. Skriv en funktion som tar $f$, $a$, $b$, $N$ som indata och returnerar $I$.
+

@@ -209,16 +209,29 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#gor-detta-innan-lektion">Gör detta innan lektion</a></li>
-<li><a href="#under-lektion">Under lektion</a></li>
+<li><a href="#under-lektion">Under lektion</a><ul>
+<li><a href="#monte-carlo-integrering">Monte-Carlo integrering</a></li>
+</ul></li>
 </ul>
 </div>
 
 <div id="gor-detta-innan-lektion" class="section level2">
 <h2>Gör detta innan lektion</h2>
 <p>Lös kapitlen <em>A quick refresher</em> och <em>When and how you should write a function</em> på <a href="https://www.datacamp.com/groups/statistisk-databehandling-vt18">DataCamp</a>.</p>
+<p>Läs <a href="http://r4ds.had.co.nz/">R4DS</a> kapitel 19, 20.1-20.4.</p>
 </div>
 <div id="under-lektion" class="section level2">
 <h2>Under lektion</h2>
+<p>Gör övningarna i <a href="http://r4ds.had.co.nz/">R4DS</a> kapitel 19.</p>
+<div id="monte-carlo-integrering" class="section level3">
+<h3>Monte-Carlo integrering</h3>
+<p>Om <span class="math inline">\(X\)</span> är likformigt fördelad på intervallet <span class="math inline">\((a,b)\)</span> blir <span class="math inline">\(E(f(X))=\int_{a}^bf(x)/(b-a)\,dx\)</span>. Detta kan vi utnyttja tillsammans med Stora talens lag för att approximera integraler:</p>
+<ol style="list-style-type: decimal">
+<li>Simulera ett stort antal <span class="math inline">\(x_1,\ldots, x_N\)</span> likformigt fördelade slumptal på <span class="math inline">\((a, b)\)</span>.</li>
+<li>Bestäm <span class="math inline">\(I=(b-a)\sum_{i=1}^N f(x_i)/N\)</span>.</li>
+</ol>
+<p>Enligt Stora talens lag konvergerar <span class="math inline">\(I\)</span> mot <span class="math inline">\(\int_{a}^bf(x)\,dx\)</span> då <span class="math inline">\(N\rightarrow\infty\)</span> och kan därför ses som en numerisk approximation av integralen. Skriv en funktion som tar <span class="math inline">\(f\)</span>, <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(N\)</span> som indata och returnerar <span class="math inline">\(I\)</span>.</p>
+</div>
 </div>
 
 

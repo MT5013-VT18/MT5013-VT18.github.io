@@ -10,4 +10,6 @@ output:
 
 Lös kapitlen *Functional programming* och *Advanced inputs and outputs* på [DataCamp](https://www.datacamp.com/groups/statistisk-databehandling-vt18).
 
+Läs [R4DS](http://r4ds.had.co.nz/) kapitel 20.5-20.7, 21.
+
 ## Under lektion

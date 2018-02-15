@@ -1,0 +1,187 @@
+---
+title: "Statistisk databehandling MT5013"
+author: "Martin Sköld"
+output:
+  ioslides_presentation:
+    logo: SU_logo_CMYK.png
+    incremental: FALSE
+    css: slides.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+suppressPackageStartupMessages(library(tidyverse))
+```
+
+# Funktioner i R
+
+## Allt som returnerar något är en funktion
+```{r}
+1 + 2
+`+`(1,2)
+```
+
+## Allt som returnerar något är en funktion
+```{r}
+mtcars[,3]
+`[`(mtcars, , 3)
+```
+
+
+## Funktioner i R
+
+Består av tre delar
+
+* argumenten (formals)
+* koden (body)
+* omgivningen (environment) (överkurs)
+
+```{r, eval = FALSE}
+f <- function(<formals>){
+    <body>
+}
+```
+
+## Funktioner i R
+```{r}
+f <- function(x) x^2
+formals(f)
+body(f)
+environment(f)
+```
+
+
+
+## `formals`
+
+"default" värde
+```{r}
+f <- function(x, y = 2) x^y
+f(3)
+```
+
+## `formals`
+
+"default" värde
+```{r}
+f <- function(x, y = 2) x^y
+f(3, 3)
+```
+
+## `formals`
+
+"default" värde
+```{r}
+f <- function(x, y = 2) x^y
+f(y = 3, 2)
+```
+
+## `formals`
+
+"default" värde
+```{r, eval = FALSE}
+f <- function(x, y = 2) x^y
+f(y = 3)
+```
+
+```
+##: Error in f(y = 3) : argument "x" is missing, with no default
+```
+
+## `formals`
+
+"default" värde
+```{r, eval = FALSE}
+f <- function(x, y = 2) x^y
+f(3, 2, 1)
+```
+
+```
+##: Error in f(3, 2, 1) : unused argument (1)
+```
+
+## `...`
+
+```{r}
+f <- function(x, y = 2, ...) x^y
+f(3, 2, 1)
+```
+
+## `...`
+
+```{r}
+sum_string <- function(...) paste(..., sep = " + ")
+sum_string(1, 2, 3, 4)
+```
+
+## `...` + `do.call`
+
+```{r}
+sim_values <- function(rdistr, ...) do.call(rdistr, list(...))
+sim_values(rnorm, 5, mean = 10, sd = 1/10)
+sim_values(runif, 10, min = 1, max = 2)
+```
+
+## Lazy evaluation
+
+```{r}
+f <- function(x, y) x^2
+f(3)
+```
+
+## Non-standard  evaluation (överkurs)
+```{r}
+x <- 1:10
+plot(x^2)
+```
+
+## Non-standard evaluation (överkurs)
+
+`library(dplyr)` och `library("dplyr")` laddar `dplyr`, men vad laddar
+```{r, eval = FALSE}
+dplyr <- "ggplot2"
+library(dplyr)
+```
+
+
+## Scoping: var hittar funktioner sina värden
+
+```{r}
+f <- function(x) x^y
+y <- 3
+f(2)
+```
+## Scoping: var hittar funktioner sina värden
+
+```{r}
+f <- function(x){
+    y <- 2
+    x^y
+}
+y <- 3
+f(2)
+```
+
+## utdata
+
+```{r}
+f <- function(x){
+    x^2
+    x^3
+}
+f(2)
+```
+
+## utdata
+```{r}
+f <- function(x){
+    return(x^2)
+    x^3
+}
+f(2)
+```
+
+
+## Lär mer på
+
+<http://adv-r.had.co.nz/>
