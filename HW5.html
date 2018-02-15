@@ -11,7 +11,7 @@
 
 
 
-<title>Individuella hemuppgifter (3 hp, betyg G/U.)</title>
+<title>HW5: Externa data</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -202,47 +202,52 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Individuella hemuppgifter (3 hp, betyg G/U.)</h1>
+<h1 class="title toc-ignore">HW5: Externa data</h1>
 
 </div>
 
 
-<p>Kursen innehåller sex hemupgifter vars lösningar skall laddas upp på GitHub innan 24:00 vid angiven deadline. Hemuppgifterna skall lösas självständigt.</p>
-<p>Det ingår även att göra en kamratgranskning av en annan students lösning, betygssättning utförs dock av läraren.</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Homework</th>
-<th align="left">Deadline</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left"><a href="HW1.html">HW1: GitHub test-run</a></td>
-<td align="left">2018-01-21</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="HW2.html">HW2: Grundläggande tidyverse</a></td>
-<td align="left">2018-01-28</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="HW3.html">HW3: Tabellhantering</a></td>
-<td align="left">2018-02-04</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="HW4.html">HW4: Austen vs Rowling</a></td>
-<td align="left">2018-02-11</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="HW5.html">HW5: Externa data</a></td>
-<td align="left">2018-02-18</td>
-</tr>
-<tr class="even">
-<td align="left">HW6</td>
-<td align="left">2018-02-25</td>
-</tr>
-</tbody>
-</table>
+<div id="koladakoroplet" class="section level1">
+<h1>Koladakoroplet</h1>
+<p>En korpletkarta (ENG: <a href="https://en.wikipedia.org/wiki/Choropleth_map">choroplet</a>) är en karta där regioner är färglagda efter värdet på en tillhörande variabel. I denna uppgift skall ni skapa en funktion som plottar koropletkartor färglagda efter nyckeltal från <a href="https://www.kolada.se/index.php?_p=index">Kommun- och Landstingsdatabasen (Kolada)</a>.</p>
+<p>En tabell med sveriges kommungränser i polygonformat finns på <a href="https://github.com/MT5013-VT18/HW_data" class="uri">https://github.com/MT5013-VT18/HW_data</a> som <code>kommun_karta.csv</code>. Ladda ner denna och placera i ett underbibliotek <code>data</code> till ditt <code>Homework</code>-repo. En titt på filens innehåll ger</p>
+<pre class="r"><code>kommun_karta &lt;- read_csv(&quot;data/kommun_karta.csv&quot;)
+glimpse(kommun_karta)</code></pre>
+<pre><code>## Observations: 632,251
+## Variables: 7
+## $ long  &lt;dbl&gt; 661116.3, 661171.5, 661182.7, 661198.9, 661205.9, 661210...
+## $ lat   &lt;dbl&gt; 6606615, 6606604, 6606605, 6606606, 6606605, 6606594, 66...
+## $ order &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1...
+## $ hole  &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, ...
+## $ piece &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
+## $ id    &lt;chr&gt; &quot;0114&quot;, &quot;0114&quot;, &quot;0114&quot;, &quot;0114&quot;, &quot;0114&quot;, &quot;0114&quot;, &quot;0114&quot;, ...
+## $ group &lt;chr&gt; &quot;0114.1&quot;, &quot;0114.1&quot;, &quot;0114.1&quot;, &quot;0114.1&quot;, &quot;0114.1&quot;, &quot;0114....</code></pre>
+<p>Här ger <code>long</code>/<code>lat</code> polygonernas hörn, <code>order</code> anger i vilken ordning det skall dras linjer mellan hörnen, <code>hole</code> anger om polygonen är ett hål (en sjö), <code>piece</code> anger ordningstal om en kommun består av flera polygoner, <code>id</code> är <a href="http://www.scb.se/hitta-statistik/regional-statistik-och-kartor/regionala-indelningar/lan-och-kommuner/lan-och-kommuner-i-kodnummerordning/">kommunens nummer</a> och <code>group</code> en sammanslagning av <code>piece</code> och <code>order</code>.</p>
+<p>En karta, här förenkelhetens skull färglagd efter kommunnummer (<code>fill = as.numeric(id)</code>), fås nu genom</p>
+<pre class="r"><code>ggplot(kommun_karta, aes(x = long, y = lat, group = group, fill = as.numeric(id))) +
+    geom_polygon() +
+    coord_fixed() +
+    theme_minimal()</code></pre>
+<p><img src="HW5_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Ta gärna bort stödlinjer och skalor på axlarna med hjälp av <code>theme</code> då de inte fyller någon större funktion här.</p>
+<div id="uppgift" class="section level3">
+<h3>Uppgift</h3>
+<p>Skriv en funktion</p>
+<pre class="r"><code>plot_koroplet(kpi, year = 2017, karta = kommun_karta){
+    ...
+}</code></pre>
+<p>som givet nyckeltal (<code>kpi</code>), t.ex. <code>&quot;U09401&quot;</code> (Nöjd Medborgarindex - Kultur), och år plottar en koropletkarta över sveriges kommuner färglagt efter nyckeltalet. Du kan begränsa dig till kommunerna i ett givet län om du tycker det går trögt att plotta hela landet.</p>
+<p>Nyckeltalets värden skall funktionen hämta från <a href="https://www.kolada.se/index.php?_p=index/API">Koladas API</a>. Demonstrera att funktionen fungerar.</p>
+</div>
+</div>
+<div id="dramatens-uppsattningar" class="section level1">
+<h1>Dramatens uppsättningar</h1>
+<p>Skriv en funktion</p>
+<pre class="r"><code>repertoar &lt;- function(year){
+    ...
+}</code></pre>
+<p>som returnerar en tabell med Dramatens uppsättningar ett givet år (kolumner <em>Uppsättning, Premiärdatum, Regissör, Scen</em>). Uppsättningarna för t.ex. invigningsåret 1908 fås genom att skrapa tabellen på <a href="http://www.dramaten.se/medverkande/rollboken/?category=date&amp;query=1908" class="uri">http://www.dramaten.se/medverkande/rollboken/?category=date&amp;query=1908</a>. Undersök sidkällan eller använd <a href="https://cran.r-project.org/web/packages/rvest/vignettes/selectorgadget.html">SelectorGadget</a> för att identifiera lämpliga parametervärden att skicka till <code>html_nodes</code>.</p>
+</div>
 
 
 
