@@ -25,5 +25,8 @@ tillsammans med Stora talens lag för att approximera integraler:
 1. Simulera ett stort antal $x_1,\ldots, x_N$ likformigt fördelade slumptal på $(a, b)$.
 2. Bestäm $I=(b-a)\sum_{i=1}^N f(x_i)/N$.
 
-Enligt Stora talens lag konvergerar $I$ mot  $\int_{a}^bf(x)\,dx$ då $N\rightarrow\infty$ och kan därför ses som en numerisk approximation av integralen. Skriv en funktion som tar $f$, $a$, $b$, $N$ som indata och returnerar $I$.
+Enligt Stora talens lag konvergerar $I$ mot  $\int_{a}^bf(x)\,dx$ då $N\rightarrow\infty$ och kan därför ses som en numerisk approximation av integralen. 
+
+* Skriv en funktion `MC_int`som tar $f$, $a$, $b$, $N$ som indata och returnerar $I$.
+* Generalisera funktionen med `...` så att t.ex. `MC_int(dnorm, 0, 1, 10000, mean = 1, sd = 2)` integrerar tätheten för en $N(1, 2^2)$-fördelning.
 
