@@ -13,3 +13,33 @@ Lös kapitlen *Functional programming* och *Advanced inputs and outputs* på [Da
 Läs [R4DS](http://r4ds.had.co.nz/) kapitel 20.5-20.7, 21.
 
 ## Under lektion
+
+Gör övningarna i [R4DS](http://r4ds.had.co.nz/iteration.html#exercises-58) kapitel 21.5.3.
+
+### Meste regissören
+
+Modifiera vid behov funktinen `repertoar` från HW5 så att den genererar ett 
+lämpligt resultat ifall det saknas repertoar ett givet år. Använd den sedan i
+kombination med t.ex. `map` och `map_df` för att skapa en `data.frame` med alla 
+uppsättningar från 1908-2017. Vem har regisserat flest?
+
+### SHL-spelare igen
+
+Funktionen `get_player` nedan hämtar data på en SHL spelare givet en url av typen `"http://www.shl.se/lag/087a-087aTQv9u__frolunda-hc/qQ9-a5b4QRqdS__ryan-lasch"`
+
+```{r}
+get_player <- function(url){
+    response <- GET(paste0(url, "/statistics"))
+    player_xml <- content(response, "text") %>% 
+        read_html(player_page)
+    css <- list(".rmss_c-squad__player-header-name-h", # Namn
+                ".rmss_c-squad__player-header-name-info-position", #Position
+                ".rmss_c-squad__player-header-info-items-item-value") # Info
+    map(css, html_nodes, x = player_xml) %>% 
+        map(html_text) %>% 
+        unlist() %>% 
+        set_names(c("Namn", "Position", "Födelsedatum", "Ålder", "Nationalitet", "Längd", "Vikt", "Skjuter"))
+}
+```
+se till att den ger lämpligt felmeddelande ifall `GET`-anropet misslyckas (i ett lyckat anrop ges `response$status_code` värdet `200`). Konstruera en ny funktion, `get_team`, som givet en url av typen `"http://www.shl.se/lag/2459-2459QTs1f__djurgarden-hockey/roster"` genererar en `data.frame` med lagets spelare och information från `get_player`.
+

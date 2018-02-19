@@ -209,7 +209,10 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#gor-detta-innan-lektion">Gör detta innan lektion</a></li>
-<li><a href="#under-lektion">Under lektion</a></li>
+<li><a href="#under-lektion">Under lektion</a><ul>
+<li><a href="#meste-regissoren">Meste regissören</a></li>
+<li><a href="#shl-spelare-igen">SHL-spelare igen</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -220,6 +223,28 @@ $(document).ready(function () {
 </div>
 <div id="under-lektion" class="section level2">
 <h2>Under lektion</h2>
+<p>Gör övningarna i <a href="http://r4ds.had.co.nz/iteration.html#exercises-58">R4DS</a> kapitel 21.5.3.</p>
+<div id="meste-regissoren" class="section level3">
+<h3>Meste regissören</h3>
+<p>Modifiera vid behov funktinen <code>repertoar</code> från HW5 så att den genererar ett lämpligt resultat ifall det saknas repertoar ett givet år. Använd den sedan i kombination med t.ex. <code>map</code> och <code>map_df</code> för att skapa en <code>data.frame</code> med alla uppsättningar från 1908-2017. Vem har regisserat flest?</p>
+</div>
+<div id="shl-spelare-igen" class="section level3">
+<h3>SHL-spelare igen</h3>
+<p>Funktionen <code>get_player</code> nedan hämtar data på en SHL spelare givet en url av typen <code>&quot;http://www.shl.se/lag/087a-087aTQv9u__frolunda-hc/qQ9-a5b4QRqdS__ryan-lasch&quot;</code></p>
+<pre class="r"><code>get_player &lt;- function(url){
+    response &lt;- GET(paste0(url, &quot;/statistics&quot;))
+    player_xml &lt;- content(response, &quot;text&quot;) %&gt;% 
+        read_html(player_page)
+    css &lt;- list(&quot;.rmss_c-squad__player-header-name-h&quot;, # Namn
+                &quot;.rmss_c-squad__player-header-name-info-position&quot;, #Position
+                &quot;.rmss_c-squad__player-header-info-items-item-value&quot;) # Info
+    map(css, html_nodes, x = player_xml) %&gt;% 
+        map(html_text) %&gt;% 
+        unlist() %&gt;% 
+        set_names(c(&quot;Namn&quot;, &quot;Position&quot;, &quot;Födelsedatum&quot;, &quot;Ålder&quot;, &quot;Nationalitet&quot;, &quot;Längd&quot;, &quot;Vikt&quot;, &quot;Skjuter&quot;))
+}</code></pre>
+<p>se till att den ger lämpligt felmeddelande ifall <code>GET</code>-anropet misslyckas (i ett lyckat anrop ges <code>response$status_code</code> värdet <code>200</code>). Konstruera en ny funktion, <code>get_team</code>, som givet en url av typen <code>&quot;http://www.shl.se/lag/2459-2459QTs1f__djurgarden-hockey/roster&quot;</code> genererar en <code>data.frame</code> med lagets spelare och information från <code>get_player</code>.</p>
+</div>
 </div>
 
 
