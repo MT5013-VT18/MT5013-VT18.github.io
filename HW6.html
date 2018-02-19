@@ -11,7 +11,7 @@
 
 
 
-<title>Individuella hemuppgifter (3 hp, betyg G/U.)</title>
+<title>HW6: Stjärnornas krig</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -202,47 +202,52 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Individuella hemuppgifter (3 hp, betyg G/U.)</h1>
+<h1 class="title toc-ignore">HW6: Stjärnornas krig</h1>
 
 </div>
 
 
-<p>Kursen innehåller sex hemupgifter vars lösningar skall laddas upp på GitHub innan 24:00 vid angiven deadline. Hemuppgifterna skall lösas självständigt.</p>
-<p>Det ingår även att göra en kamratgranskning av en annan students lösning, betygssättning utförs dock av läraren.</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Homework</th>
-<th align="left">Deadline</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left"><a href="HW1.html">HW1: GitHub test-run</a></td>
-<td align="left">2018-01-21</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="HW2.html">HW2: Grundläggande tidyverse</a></td>
-<td align="left">2018-01-28</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="HW3.html">HW3: Tabellhantering</a></td>
-<td align="left">2018-02-04</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="HW4.html">HW4: Austen vs Rowling</a></td>
-<td align="left">2018-02-11</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="HW5.html">HW5: Externa data</a></td>
-<td align="left">2018-02-18</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="HW6.html">HW6: Stjärnornas krig</a></td>
-<td align="left">2018-02-25</td>
-</tr>
-</tbody>
-</table>
+<p><a href="https://swapi.co/">SWAPI</a> är ett API med data över Star Wars filmerna som kan hämtas i JSON-format. Det finns ett R-paket <code>rwars</code> som kan användas för att hämta data från detta API, jag vet inte om det är till någon hjälp men det skall inte användas i uppgiften.</p>
+<p>Ett exempel på datauttag ges av följande kod, läs mer på <a href="https://swapi.co/documentation">SWAPIs dokumentation</a>.</p>
+<pre class="r"><code>library(httr)
+library(jsonlite)
+response &lt;- GET(&quot;https://swapi.co/api/people/1/&quot;)
+luke &lt;- content(response, &quot;text&quot;) %&gt;% fromJSON()
+str(luke)</code></pre>
+<pre><code>## List of 16
+##  $ name      : chr &quot;Luke Skywalker&quot;
+##  $ height    : chr &quot;172&quot;
+##  $ mass      : chr &quot;77&quot;
+##  $ hair_color: chr &quot;blond&quot;
+##  $ skin_color: chr &quot;fair&quot;
+##  $ eye_color : chr &quot;blue&quot;
+##  $ birth_year: chr &quot;19BBY&quot;
+##  $ gender    : chr &quot;male&quot;
+##  $ homeworld : chr &quot;https://swapi.co/api/planets/1/&quot;
+##  $ films     : chr [1:5] &quot;https://swapi.co/api/films/2/&quot; &quot;https://swapi.co/api/films/6/&quot; &quot;https://swapi.co/api/films/3/&quot; &quot;https://swapi.co/api/films/1/&quot; ...
+##  $ species   : chr &quot;https://swapi.co/api/species/1/&quot;
+##  $ vehicles  : chr [1:2] &quot;https://swapi.co/api/vehicles/14/&quot; &quot;https://swapi.co/api/vehicles/30/&quot;
+##  $ starships : chr [1:2] &quot;https://swapi.co/api/starships/12/&quot; &quot;https://swapi.co/api/starships/22/&quot;
+##  $ created   : chr &quot;2014-12-09T13:50:51.644000Z&quot;
+##  $ edited    : chr &quot;2014-12-20T21:17:56.891000Z&quot;
+##  $ url       : chr &quot;https://swapi.co/api/people/1/&quot;</code></pre>
+<ul>
+<li>Skriv en funktion som, givet en karaktär-url (t.ex. <code>&quot;https://swapi.co/api/people/1/&quot;</code>) returnerar namn och ras (<code>species</code>) för rollfiguren. Om <code>GET</code>-anropet lyckas kommer <code>response$status_code</code> anta värdet <code>200</code> (<a href="https://sv.wikipedia.org/wiki/Lista_%C3%B6ver_HTTP-statuskoder">lista över statuskoder</a>), om den antar något annat värde skall funktionen stanna (<code>stop</code>) och ge lämpligt felmeddelande. Illustrera att detta fungerar genom att anropa funktionen med en felaktig url. Exempel:</li>
+</ul>
+<pre class="r"><code>get_character(&quot;https://swapi.co/api/people/1/&quot;)</code></pre>
+<pre><code>##             Name Species
+## 1 Luke Skywalker   Human</code></pre>
+<ul>
+<li>Skriv en funktion som, med hjälp av funktionen ovan och en given film-url (t.ex. <code>&quot;https://swapi.co/api/films/1/&quot;</code>), hämtar rolllistan. Illustrera genom att skriva ut rollistan för en film. Exempel:</li>
+</ul>
+<pre class="r"><code>get_cast(&quot;https://swapi.co/api/films/1/&quot;) %&gt;% 
+    head(2) </code></pre>
+<pre><code>##             Name Species
+## 1 Luke Skywalker   Human
+## 2          C-3PO   Droid</code></pre>
+<ul>
+<li>Illustrera med figur hur någon aspekt av rasfördelningen hos rollfigurerna varierar mellan de olika filmerna.</li>
+</ul>
 
 
 

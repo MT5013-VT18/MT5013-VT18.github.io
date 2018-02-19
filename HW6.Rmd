@@ -1,0 +1,53 @@
+---
+title: "HW6: Stjärnornas krig"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+suppressPackageStartupMessages(library(tidyverse))
+```
+
+
+
+[SWAPI](https://swapi.co/) är ett API med data över Star Wars filmerna som kan hämtas i JSON-format. Det finns ett R-paket `rwars` som kan användas för att hämta data från detta API, jag vet inte om det är till någon hjälp men det skall inte användas i uppgiften. 
+
+Ett exempel på datauttag ges av följande kod, läs mer på [SWAPIs dokumentation](https://swapi.co/documentation).
+```{r}
+library(httr)
+library(jsonlite)
+response <- GET("https://swapi.co/api/people/1/")
+luke <- content(response, "text") %>% fromJSON()
+str(luke)
+```
+
+* Skriv en funktion som, givet en karaktär-url (t.ex. `"https://swapi.co/api/people/1/"`) returnerar namn och ras (`species`) för rollfiguren. Om `GET`-anropet lyckas kommer `response$status_code` anta värdet `200` ([lista över statuskoder](https://sv.wikipedia.org/wiki/Lista_%C3%B6ver_HTTP-statuskoder)), om den antar något annat värde skall funktionen stanna (`stop`) och ge lämpligt felmeddelande. Illustrera att detta fungerar genom att anropa funktionen med en felaktig url. Exempel:
+```{r, echo = FALSE}
+get_character <- function(x){
+    data.frame(Name = "Luke Skywalker", Species = "Human")
+}
+```
+
+```{r}
+get_character("https://swapi.co/api/people/1/")
+```
+
+
+
+
+* Skriv en funktion som, med hjälp av funktionen ovan och en given film-url (t.ex. `"https://swapi.co/api/films/1/"`),
+hämtar rolllistan. Illustrera genom att skriva ut rollistan för en film. Exempel:
+```{r, echo = FALSE}
+get_cast <- function(x){
+    data.frame(Name = c("Luke Skywalker", "C-3PO"), Species = c("Human", "Droid"))
+}
+```
+
+```{r}
+get_cast("https://swapi.co/api/films/1/") %>% 
+    head(2) 
+```
+
+
+* Illustrera med figur hur någon aspekt av rasfördelningen hos rollfigurerna varierar mellan de olika filmerna.
+
