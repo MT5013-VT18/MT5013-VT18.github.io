@@ -210,6 +210,7 @@ $(document).ready(function () {
 <ul>
 <li><a href="#gor-detta-innan-lektion">Gör detta innan lektion</a></li>
 <li><a href="#under-lektion">Under lektion</a><ul>
+<li><a href="#en-likelihood-funktion">En likelihood-funktion</a></li>
 <li><a href="#meste-regissoren">Meste regissören</a></li>
 <li><a href="#shl-spelare-igen">SHL-spelare igen</a></li>
 </ul></li>
@@ -224,6 +225,23 @@ $(document).ready(function () {
 <div id="under-lektion" class="section level2">
 <h2>Under lektion</h2>
 <p>Gör övningarna i <a href="http://r4ds.had.co.nz/iteration.html#exercises-58">R4DS</a> kapitel 21.5.3.</p>
+<div id="en-likelihood-funktion" class="section level3">
+<h3>En likelihood-funktion</h3>
+<p>Om <span class="math inline">\(x\)</span> är en vektor av <span class="math inline">\(n\)</span> oberoende <span class="math inline">\(Exponential(\lambda)\)</span>-fördelade variabler ges likelihood-funktionen för <span class="math inline">\(\lambda\)</span> av <span class="math display">\[
+L(\lambda)= \prod_{i=1}^n\lambda\exp(-x_i\lambda)
+\]</span> Denna kan beräknas för ett givet värde på <span class="math inline">\(\lambda\)</span> med funktionen</p>
+<pre class="r"><code>L_exp &lt;- function(x, lambda) prod(dexp(x, lambda))</code></pre>
+<p>vi provar med</p>
+<pre class="r"><code>set.seed(1)
+x &lt;- rexp(100, 1)
+L_exp(x, 1)</code></pre>
+<pre><code>## [1] 1.730976e-45</code></pre>
+<p>vilket verkar fungera bra. Om vi vill plotta funktionen behöver vi bestämma den för en sekvens <span class="math inline">\(\lambda\)</span>-värden, vi provar:</p>
+<pre class="r"><code>lambda &lt;- seq(0.5, 2, length.out = 10)
+L_exp(x, lambda)</code></pre>
+<pre><code>## [1] 7.026489e-50</code></pre>
+<p>Istället för en vektor med 10 värden får vi en skalär, vilket tal är detta? Använd <code>map_dbl</code> för att bestämma vektorn <span class="math inline">\((L(\lambda_1), \ldots, L(\lambda_{10}))\)</span>.</p>
+</div>
 <div id="meste-regissoren" class="section level3">
 <h3>Meste regissören</h3>
 <p>Modifiera vid behov funktinen <code>repertoar</code> från HW5 så att den genererar ett lämpligt resultat ifall det saknas repertoar ett givet år. Använd den sedan i kombination med t.ex. <code>map</code> och <code>map_df</code> för att skapa en <code>data.frame</code> med alla uppsättningar från 1908-2017. Vem har regisserat flest?</p>

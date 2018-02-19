@@ -16,6 +16,30 @@ Läs [R4DS](http://r4ds.had.co.nz/) kapitel 20.5-20.7, 21.
 
 Gör övningarna i [R4DS](http://r4ds.had.co.nz/iteration.html#exercises-58) kapitel 21.5.3.
 
+### En likelihood-funktion
+
+Om $x$ är en vektor av $n$ oberoende $Exponential(\lambda)$-fördelade variabler ges likelihood-funktionen för $\lambda$ av
+$$
+L(\lambda)= \prod_{i=1}^n\lambda\exp(-x_i\lambda)
+$$
+Denna kan beräknas för ett givet värde på $\lambda$ med funktionen
+```{r}
+L_exp <- function(x, lambda) prod(dexp(x, lambda))
+```
+vi provar med
+```{r}
+set.seed(1)
+x <- rexp(100, 1)
+L_exp(x, 1)
+```
+vilket verkar fungera bra. Om vi vill plotta funktionen behöver vi bestämma den för en sekvens $\lambda$-värden, vi provar:
+```{r}
+lambda <- seq(0.5, 2, length.out = 10)
+L_exp(x, lambda)
+```
+Istället för en vektor med 10 värden får vi en skalär, vilket tal är detta? Använd `map_dbl` för att bestämma vektorn $(L(\lambda_1), \ldots, L(\lambda_{10}))$.
+
+
 ### Meste regissören
 
 Modifiera vid behov funktinen `repertoar` från HW5 så att den genererar ett 
