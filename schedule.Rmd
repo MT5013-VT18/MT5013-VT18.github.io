@@ -32,7 +32,7 @@ topics <- c(
     "[Web-scraping: Basic rvest.](day11.html)",
     "[R Programming: Programming with functions.](day12.html)",
     "[R Programming: Functional programming with purrr.](day13.html) **Guest lecture: Mehrdad Mamaghani from [Prime](https://primegroup.com/article/insight-mapping-usa-on-facebook-the-case-for-macro-targeting/)**",
-    "Presenting: Principles of visualisation.",
+    "[Presenting: Principles of visualisation.](dat14.html)",
     "Exam.",
     "Project presentation.")
 kable(data.frame(Day = paste(datum$veckodag, datum$startdate, sep = ", "), Time = datum$tid, Topic = topics))

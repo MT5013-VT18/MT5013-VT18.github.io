@@ -10,7 +10,8 @@ En digital tentamen, motsvarande 1.5 hp, är schemalagd eftermiddagen **2018-02-
 * [Data Transformation Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
 * [Data Import Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)
 * [Working with Strings Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/strings.pdf)
+* [SQL Cheat Sheet](http://files.zeroturnaround.com/pdf/zt_sql_cheat_sheet.pdf)
 
-som delas ut i samband med tentamen. Utöver dessa kommer även ett SQL Cheat Sheet delas ut.
+som delas ut i samband med tentamen.
 
 Följande R-paket kommer vara tillgängliga: `tidyverse` (t.ex. `dplyr`, `tidyr`, `readr`, `tidyr`, `stringr`), `rmarkdown`, `knitr`, `DBI`, `rsqlite`, `rebus`, `jsonlite`, `listviewer`, `xml2`.
